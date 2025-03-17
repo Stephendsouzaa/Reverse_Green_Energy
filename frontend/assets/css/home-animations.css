@@ -1,0 +1,220 @@
+/* home-animations.css - Additional animations and effects for the Reverse Green Energy home page */
+
+/* Glow Animation Completion */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(0, 200, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 20px rgba(0, 200, 255, 0.6), 0 0 30px rgba(0, 200, 255, 0.4);
+    }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Floating Animation */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Enhanced Glow Animation */
+@keyframes enhanced-glow {
+    0% { text-shadow: 0 0 10px rgba(0, 200, 255, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(0, 200, 255, 0.7), 0 0 30px rgba(0, 200, 255, 0.5); }
+    100% { text-shadow: 0 0 10px rgba(0, 200, 255, 0.3); }
+}
+
+/* Advanced Floating Animation with Rotation */
+@keyframes float-advanced {
+    0% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(1deg); }
+    50% { transform: translateY(-15px) rotate(0deg); }
+    75% { transform: translateY(-8px) rotate(-1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Shimmer Effect for Cards */
+@keyframes shimmer {
+    0% { background-position: -100% 0; }
+    100% { background-position: 100% 0; }
+}
+
+/* Pulse Animation with Scale and Glow */
+@keyframes pulse-glow {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(0, 200, 255, 0); }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(0, 200, 255, 0.5); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(0, 200, 255, 0); }
+}
+
+/* Apply enhanced animations to elements */
+.hero-title {
+    animation: enhanced-glow 3s infinite ease-in-out;
+}
+
+.hero-content {
+    animation: fadeIn 1.5s ease-out;
+}
+
+.feature-card {
+    animation: fadeIn 0.8s ease-out backwards;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 20px var(--button-glow);
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.2s; }
+.feature-card:nth-child(2) { animation-delay: 0.4s; }
+.feature-card:nth-child(3) { animation-delay: 0.6s; }
+
+/* Enhanced Energy Counter Animation */
+.energy-counter {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    background: linear-gradient(90deg, var(--solar-yellow), var(--neon-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulse-glow 2s infinite ease-in-out;
+}
+
+/* Animated CTA Buttons */
+.cta-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-primary {
+    animation: pulse-glow 3s infinite ease-in-out;
+}
+
+/* Parallax Effect */
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    transform: translateZ(-10px) scale(2);
+}
+
+/* Cycling Text Animation */
+.cycling-text {
+    transition: opacity 0.5s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    h1 {
+        font-size: 3rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .cta-buttons {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .features-grid[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        flex-wrap: wrap;
+    }
+    
+    nav ul li a {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .energy-counter {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+    }
+    
+    .energy-counter {
+        font-size: 1.75rem;
+    }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text-primary: #FFFFFF;
+        --text-secondary: rgba(255, 255, 255, 0.7);
+    }
+}
+
+/* Light Mode Support */
+@media (prefers-color-scheme: light) {
+    :root {
+        --gradient-dark-start: var(--gradient-light-start);
+        --gradient-dark-end: var(--gradient-light-end);
+        --text-primary: #0A192F;
+        --text-secondary: rgba(10, 25, 47, 0.7);
+    }
+    
+    .feature-card {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+}

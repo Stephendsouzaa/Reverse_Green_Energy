@@ -1,0 +1,93 @@
+/* Map container styles */
+#map {
+    height: 600px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Analysis panel styles */
+.analysis-panel {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.analysis-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+}
+
+.analysis-section h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.analysis-section p {
+    margin: 5px 0;
+    color: #34495e;
+}
+
+/* Controls and layers styles */
+.leaflet-control-layers {
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-draw-toolbar {
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+/* Error message styles */
+.error-message {
+    background-color: #ff6b6b;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    margin-top: 10px;
+    animation: fadeIn 0.3s ease-in;
+}
+
+/* Loading indicator */
+.loading-indicator {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #map {
+        height: 400px;
+    }
+    
+    .analysis-panel {
+        padding: 15px;
+    }
+    
+    .analysis-section {
+        padding: 10px;
+    }
+}

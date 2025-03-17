@@ -1,0 +1,111 @@
+.site-selection-nav {
+    background: rgba(0, 0, 0, 0.65);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.site-selection-nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.7rem 1.2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.site-selection-nav h1 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    margin: 0;
+    text-shadow: 0 0 11px rgba(255, 255, 255, 0.35);
+}
+
+.site-selection-nav nav {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+}
+
+.site-selection-nav nav ul {
+    display: flex;
+    gap: 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.site-selection-nav nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.8rem 1.4rem;
+    border-radius: 0.8rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    position: relative;
+    margin: 0 0.3rem;
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    letter-spacing: 0.55px;
+    font-size: 0.97rem;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.site-selection-nav nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.32);
+    border-color: rgba(255, 255, 255, 0.32);
+    color: #FFFFFF;
+    text-shadow: 0 0 9px rgba(255, 255, 255, 0.55);
+}
+
+.site-selection-nav nav ul li a.active {
+    background: linear-gradient(135deg, #2563EB, #059669);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.42);
+    text-shadow: 0 0 11px rgba(255, 255, 255, 0.65);
+    position: relative;
+    overflow: hidden;
+}
+
+.site-selection-nav nav ul li a.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+    animation: shine 1.5s infinite;
+}
+
+@media (max-width: 768px) {
+    .site-selection-nav .container {
+        flex-direction: column;
+        gap: 1.1rem;
+        text-align: center;
+        padding: 1.1rem;
+    }
+
+    .site-selection-nav nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.9rem;
+    }
+
+    .site-selection-nav nav ul li a {
+        padding: 0.65rem 1.1rem;
+        font-size: 0.92rem;
+    }
+}

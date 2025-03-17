@@ -1,0 +1,6 @@
+[
+    {"location": "California", "latitude": 36.7783, "longitude": -119.4179, "solar_irradiance": 5.8},
+    {"location": "Arizona", "latitude": 34.0489, "longitude": -111.0937, "solar_irradiance": 6.2},
+    {"location": "Texas", "latitude": 31.9686, "longitude": -99.9018, "solar_irradiance": 5.5}
+  ]
+  

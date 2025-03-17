@@ -1,0 +1,286 @@
+<!-- Analysis Results Sections for GIS Mapping -->
+
+<!-- Viewshed Analysis Results Section -->
+<div id="viewshedAnalysisResults" class="analysis-section p-6 bg-white rounded-lg shadow-lg" style="display: none;">
+    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">Viewshed Analysis Results <span class="ml-2">👁️</span></h3>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-blue-700 mb-3">Visibility Assessment</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Visibility Heatmap:</span>
+                    <span id="visibility-heatmap-status" class="font-medium">Not Generated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Obstruction Analysis:</span>
+                    <span id="obstruction-analysis" class="font-medium">Not Available</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Line-of-Sight Simulation:</span>
+                    <span id="line-of-sight-status" class="font-medium">Not Ready</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Visibility Distribution</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="visibility-distribution-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-green-700 mb-3">Community Impact</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Distance to Populated Areas:</span>
+                    <span id="distance-to-populated" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Aesthetic Impact Score:</span>
+                    <span id="aesthetic-impact-score" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Glare Impact:</span>
+                    <span id="glare-impact" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Population Impact</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="population-impact-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-purple-700 mb-3">Regulatory Compliance</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Protected Area Proximity:</span>
+                    <span id="protected-area-proximity" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Visual Impact Regulations:</span>
+                    <span id="visual-impact-regulations" class="font-medium">Checking...</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Required Visual Assessments:</span>
+                    <span id="required-visual-assessments" class="font-medium">Checking...</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Viewshed Map Legend</div>
+                    <div class="flex flex-col space-y-2 mt-2">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-500 mr-2"></div>
+                            <span class="text-xs">Fully Visible</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-yellow-500 mr-2"></div>
+                            <span class="text-xs">Partially Visible</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-red-500 mr-2"></div>
+                            <span class="text-xs">Obstructed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+        <p class="font-semibold text-lg text-gray-800 mb-3">Viewshed Recommendations</p>
+        <ul class="list-disc pl-5 space-y-2" id="viewshed-recommendations">
+            <!-- Recommendations will be populated dynamically -->
+            <li>Position turbines to minimize visibility from populated areas</li>
+            <li>Consider visual screening measures where visibility is high</li>
+            <li>Conduct detailed glare analysis for solar installations</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Environmental Impact Analysis Results Section -->
+<div id="environmentalAnalysisResults" class="analysis-section p-6 bg-white rounded-lg shadow-lg" style="display: none;">
+    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">Environmental Impact Analysis <span class="ml-2">🌿</span></h3>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-blue-700 mb-3">Ecological Assessment</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Environmental Sensitivity:</span>
+                    <span id="environmental-sensitivity" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Biodiversity Risk:</span>
+                    <span id="biodiversity-risk" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Carbon Footprint:</span>
+                    <span id="carbon-footprint" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Environmental Sensitivity Map</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="environmental-sensitivity-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-green-700 mb-3">Resource Impact</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Air Quality Index:</span>
+                    <span id="air-quality-index" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Water Resource Impact:</span>
+                    <span id="water-resource-impact" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Deforestation Risk:</span>
+                    <span id="deforestation-risk" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Biodiversity Impact</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="biodiversity-impact-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-purple-700 mb-3">Regulatory Compliance</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Legal Compliance Status:</span>
+                    <span id="legal-compliance-status" class="font-medium">Not Verified</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Required Permits:</span>
+                    <span id="required-permits" class="font-medium">Unknown</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Protected Species:</span>
+                    <span id="protected-species" class="font-medium">Checking...</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Environmental Map Legend</div>
+                    <div class="flex flex-col space-y-2 mt-2">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-500 mr-2"></div>
+                            <span class="text-xs">Wetlands & Rivers</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-500 mr-2"></div>
+                            <span class="text-xs">Forests & Protected Areas</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-yellow-500 mr-2"></div>
+                            <span class="text-xs">Agricultural Lands</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+        <p class="font-semibold text-lg text-gray-800 mb-3">Environmental Recommendations</p>
+        <ul class="list-disc pl-5 space-y-2" id="environmental-recommendations">
+            <!-- Recommendations will be populated dynamically -->
+            <li>Implement wildlife-friendly fencing around the installation</li>
+            <li>Develop a water management plan to prevent runoff contamination</li>
+            <li>Consider seasonal restrictions during wildlife migration periods</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Optimized Siting Analysis Results Section -->
+<div id="sitingAnalysisResults" class="analysis-section p-6 bg-white rounded-lg shadow-lg" style="display: none;">
+    <h3 class="text-2xl font-bold mb-6 text-gray-800 flex items-center">Optimized Siting Analysis <span class="ml-2">📍</span></h3>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-blue-700 mb-3">Energy Potential</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Solar Panel Placement:</span>
+                    <span id="solar-panel-placement" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Wind Turbine Placement:</span>
+                    <span id="wind-turbine-placement" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Power Grid Accessibility:</span>
+                    <span id="power-grid-accessibility" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Suitability Factors</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="suitability-factors-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-green-700 mb-3">Infrastructure & Land</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Infrastructure Accessibility:</span>
+                    <span id="infrastructure-accessibility" class="font-medium">Not Assessed</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Land Ownership & Cost:</span>
+                    <span id="land-ownership" class="font-medium">Not Determined</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">ROI Calculation:</span>
+                    <span id="roi-calculation" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">ROI Projection</div>
+                    <div class="h-40 bg-gray-200 rounded mt-1" id="roi-projection-chart"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 p-4 rounded-lg">
+            <p class="font-semibold text-lg text-purple-700 mb-3">Overall Suitability</p>
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Multi-Factor Suitability Score:</span>
+                    <span id="suitability-score" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Optimal Installation Type:</span>
+                    <span id="optimal-installation-type" class="font-medium">Not Determined</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-600">Recommended Capacity:</span>
+                    <span id="recommended-capacity" class="font-medium">Not Calculated</span>
+                </div>
+                <div class="mt-2 pt-2 border-t border-gray-200">
+                    <div class="text-sm text-gray-500">Siting Map Legend</div>
+                    <div class="flex flex-col space-y-2 mt-2">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-yellow-500 mr-2"></div>
+                            <span class="text-xs">Optimal Solar Panel Locations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-500 mr-2"></div>
+                            <span class="text-xs">Optimal Wind Turbine Locations</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-purple-500 mr-2"></div>
+                            <span class="text-xs">Power Grid Connection</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-6 p-4 bg-gray-50 rounded-lg">
+        <p class="font-semibold text-lg text-gray-800 mb-3">Siting Recommendations</p>
+        <ul class="list-disc pl-5 space-y-2" id="siting-recommendations">
+            <!-- Recommendations will be populated dynamically -->
+            <li>Prioritize solar installation in the southeastern section for maximum irradiance</li>
+            <li>Position wind turbines on elevated areas to minimize turbulence</li>
+            <li>Consider a hybrid solar-wind installation for optimal year-round energy production</li>
+        </ul>
+    </div>
+</div>

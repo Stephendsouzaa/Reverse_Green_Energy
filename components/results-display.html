@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<section id="results-display" class="p-4">
+    <div class="flex flex-col space-y-4">
+        <!-- Main visualization container -->
+        <div class="visualization-container h-[600px] bg-white rounded-lg shadow-lg">
+            <div id="map-container" class="h-full relative">
+                <!-- Map layers toggle -->
+                <div class="absolute top-4 right-4 bg-white p-2 rounded-lg shadow-md z-10">
+                    <h3 class="font-semibold mb-2">Map Layers</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Energy Potential</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox" checked>
+                            <span class="ml-2">Grid Infrastructure</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Protected Areas</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Population Density</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Wildlife Migration</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Transportation Network</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="checkbox" class="form-checkbox">
+                            <span class="ml-2">Watershed Resources</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Tools panel -->
+                <div class="absolute top-4 left-4 bg-white p-2 rounded-lg shadow-md z-10">
+                    <div class="space-x-2">
+                        <button class="tool-btn" data-tool="select">Select Area</button>
+                        <button class="tool-btn" data-tool="measure">Measure</button>
+                        <button class="tool-btn" data-tool="3d">3D View</button>
+                        <button class="tool-btn" data-tool="annotate">Annotate</button>
+                        <button class="tool-btn" data-tool="ar">AR View</button>
+                        <button class="tool-btn" data-tool="drone">Drone Path</button>
+                    </div>
+                </div>
+
+                <!-- Time controls -->
+                <div class="absolute bottom-4 left-4 right-4 bg-white p-2 rounded-lg shadow-md z-10">
+                    <div class="flex items-center space-x-4">
+                        <button id="play-time" class="tool-btn">Play</button>
+                        <input type="range" id="time-slider" class="flex-grow" min="0" max="100" value="0">
+                        <span id="time-display">00:00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis panels -->
+        <div class="grid grid-cols-3 gap-4">
+            <!-- Environmental Impact -->
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <h3 class="font-semibold mb-2">Environmental Impact</h3>
+                <div id="environmental-charts" class="space-y-4">
+                    <canvas id="wildlife-impact-chart"></canvas>
+                    <canvas id="noise-level-chart"></canvas>
+                    <canvas id="land-use-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Site Analytics -->
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <h3 class="font-semibold mb-2">Site Analytics</h3>
+                <div id="site-analytics" class="space-y-4">
+                    <canvas id="energy-potential-chart"></canvas>
+                    <canvas id="accessibility-chart"></canvas>
+                    <canvas id="population-chart"></canvas>
+                </div>
+            </div>
+
+            <!-- Time Analysis -->
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <h3 class="font-semibold mb-2">Temporal Analysis</h3>
+                <div id="temporal-analysis" class="space-y-4">
+                    <canvas id="seasonal-variation-chart"></canvas>
+                    <canvas id="sun-path-chart"></canvas>
+                    <canvas id="weather-pattern-chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action buttons -->
+        <div class="flex justify-end space-x-4">
+            <button class="btn-primary" id="export-report">Export Report</button>
+            <button class="btn-secondary" id="share-results">Share Results</button>
+            <button class="btn-secondary" id="save-offline">Save Offline</button>
+        </div>
+    </div>
+</section>
+
+<!-- Dependencies -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/three@0.132.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+<script src="/assets/js/results-display.js"></script>
+
+<!-- Styles -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<style>
+    .tool-btn {
+        @apply px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors;
+    }
+    .btn-primary {
+        @apply px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors;
+    }
+    .btn-secondary {
+        @apply px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors;
+    }
+</style>

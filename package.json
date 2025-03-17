@@ -1,0 +1,25 @@
+{
+  "name": "reverse-green-energy",
+  "version": "1.0.0",
+  "description": "Optimal location prediction for solar farms and data centers",
+  "dependencies": {
+    "chart.js": "^3.5.1",
+    "express": "^4.17.1",
+    "leaflet": "^1.7.1",
+    "mongodb": "^4.3.0",
+    "tailwindcss": "^2.2.16"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node backend/index.js",
+    "backend": "python backend/app.py",
+    "frontend": "vite",
+    "serve": "concurrently \"python backend/app.py\" \"vite\""
+  },
+  "devDependencies": {
+    "vite": "^6.2.0",
+    "concurrently": "^8.2.2"
+  }
+}

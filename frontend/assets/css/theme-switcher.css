@@ -1,0 +1,286 @@
+/* theme-switcher.css - Theme switching functionality for Reverse Green Energy Project */
+
+/* Theme Variables */
+:root {
+    /* Default Dark Theme (Midnight) */
+    --theme-bg: var(--midnight-black);
+    --theme-gradient-start: var(--gradient-dark-start);
+    --theme-gradient-end: var(--gradient-dark-end);
+    --theme-text: var(--text-primary);
+    --theme-text-secondary: var(--text-secondary);
+    --theme-card-bg: var(--glass-bg);
+    --theme-card-border: var(--glass-border);
+    --theme-transition: all 0.5s ease;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+    --theme-bg: #F8FAFC;
+    --theme-gradient-start: var(--gradient-light-start);
+    --theme-gradient-end: var(--gradient-light-end);
+    --theme-text: #0F172A;
+    --theme-text-secondary: #334155;
+    --theme-card-bg: rgba(255, 255, 255, 0.7);
+    --theme-card-border: rgba(0, 0, 0, 0.1);
+}
+
+/* Ocean Theme */
+[data-theme="ocean"] {
+    --theme-bg: #0C4A6E;
+    --theme-gradient-start: #082F49;
+    --theme-gradient-end: #0EA5E9;
+    --theme-text: #FFFFFF;
+    --theme-text-secondary: rgba(255, 255, 255, 0.8);
+    --theme-card-bg: rgba(255, 255, 255, 0.1);
+    --theme-card-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Forest Theme */
+[data-theme="forest"] {
+    --theme-bg: #14532D;
+    --theme-gradient-start: #052e16;
+    --theme-gradient-end: #16a34a;
+    --theme-text: #FFFFFF;
+    --theme-text-secondary: rgba(255, 255, 255, 0.8);
+    --theme-card-bg: rgba(255, 255, 255, 0.1);
+    --theme-card-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Desert Theme */
+[data-theme="desert"] {
+    --theme-bg: #7C2D12;
+    --theme-gradient-start: #431407;
+    --theme-gradient-end: #EA580C;
+    --theme-text: #FFFFFF;
+    --theme-text-secondary: rgba(255, 255, 255, 0.8);
+    --theme-card-bg: rgba(255, 255, 255, 0.1);
+    --theme-card-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Apply theme variables to elements */
+body {
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+    transition: var(--theme-transition);
+}
+
+#three-background {
+    background: linear-gradient(135deg, var(--theme-gradient-start), var(--theme-gradient-end));
+    transition: var(--theme-transition);
+}
+
+p {
+    color: var(--theme-text-secondary);
+    transition: var(--theme-transition);
+}
+
+.feature-card {
+    background: var(--theme-card-bg);
+    border-color: var(--theme-card-border);
+    transition: var(--theme-transition);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: relative;
+}
+
+#theme-toggle-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+#theme-toggle-btn:hover {
+    background: var(--card-bg);
+    box-shadow: 0 0 15px var(--button-glow);
+}
+
+.dark-icon,
+.light-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+/* Show/Hide Icons Based on Theme */
+[data-theme="dark"] .dark-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+[data-theme="dark"] .light-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+[data-theme="light"] .dark-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+[data-theme="light"] .light-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Theme Toggle Animation */
+.theme-toggle-animation {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Theme Switcher Panel */
+.theme-switcher {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+    transition: all 0.3s ease;
+}
+
+.theme-switcher:hover {
+    transform: translateY(-5px);
+}
+
+.theme-switcher-toggle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: white;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.theme-switcher-toggle:hover {
+    transform: scale(1.1);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 0 15px var(--button-glow);
+}
+
+.theme-options {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.theme-options.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.theme-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.theme-option:hover, .theme-option.active {
+    transform: scale(1.1);
+    border-color: white;
+    box-shadow: 0 0 10px var(--button-glow);
+}
+
+.theme-option[data-theme="dark"] {
+    background: linear-gradient(135deg, var(--gradient-dark-start), var(--gradient-dark-end));
+}
+
+.theme-option[data-theme="light"] {
+    background: linear-gradient(135deg, var(--gradient-light-start), var(--gradient-light-end));
+}
+
+.theme-option[data-theme="ocean"] {
+    background: linear-gradient(135deg, #082F49, #0EA5E9);
+}
+
+.theme-option[data-theme="forest"] {
+    background: linear-gradient(135deg, #052e16, #16a34a);
+}
+
+.theme-option[data-theme="desert"] {
+    background: linear-gradient(135deg, #431407, #EA580C);
+}
+
+/* Tooltip for theme options */
+.theme-option::after {
+    content: attr(title);
+    position: absolute;
+    right: 45px;
+    background: rgba(15, 23, 42, 0.9);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.theme-option:hover::after {
+    opacity: 1;
+    transform: translateX(-5px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .theme-switcher {
+        bottom: 10px;
+        right: 10px;
+    }
+    
+    .theme-switcher-toggle {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+    
+    .theme-option {
+        width: 25px;
+        height: 25px;
+    }
+}

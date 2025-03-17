@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Green Energy - AI-Powered Renewable Energy Insights</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/home-animations.css">
+    <link rel="stylesheet" href="/assets/css/theme-switcher.css">
+    <link rel="stylesheet" href="/assets/css/modern-header.css">
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <!-- Three.js for background animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Custom Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-new.svg">
+</head>
+<body>
+    <!-- Three.js Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <header class="modern-header">
+        <div class="logo-container">
+            <img src="/assets/images/logo-new.svg" alt="Reverse Green Energy Logo" class="logo" width="50" height="50">
+            <h1>Reverse Green Energy</h1>
+            <p class="tagline">AI-Powered Renewable Energy Insights</p>
+        </div>
+        
+        <nav class="main-navigation">
+            <ul>
+                <li><a href="index.html" ><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="site-selection.html"><i class="fas fa-map-marker-alt"></i> Site Selection</a></li>
+                <li><a href="energy-prediction.html"><i class="fas fa-bolt"></i> Energy Prediction</a></li>
+                <li><a href="gis-mapping.html"><i class="fas fa-globe"></i> GIS Mapping</a></li>
+                <li><a href="cost-estimation.html"><i class="fas fa-calculator"></i> Cost Estimation</a></li>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            </ul>
+        </nav>
+        
+        <div class="theme-toggle">
+            <button id="theme-button" class="theme-button" aria-label="Select theme">🎨</button>
+            <div id="theme-dropdown" class="theme-dropdown">
+                <button data-theme="same">🎨 Same Color</button>
+                <button data-theme="dark">🌙 Dark Theme</button>
+                <button data-theme="light">☀️ Light Theme</button>
+                <button data-theme="threejs">🌌 Three.js Background</button>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <section class="my-4">
+            <h2 class="text-xl font-bold">Project Overview</h2>
+            <p>This dashboard provides a comprehensive view of your renewable energy project analysis.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-4">
+                <div class="p-4 border rounded bg-blue-50">
+                    <h3 class="font-bold text-blue-700">Site Selection</h3>
+                    <div class="text-center text-3xl font-bold my-2">85%</div>
+                    <p class="text-center">Overall Suitability Score</p>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm">
+                            <span>Solar Potential</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>Wind Potential</span>
+                            <span>75%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>Land Suitability</span>
+                            <span>88%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-blue-600 h-2.5 rounded-full" style="width: 88%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border rounded bg-green-50">
+                    <h3 class="font-bold text-green-700">Energy Production</h3>
+                    <div class="text-center text-3xl font-bold my-2">1,730 MWh</div>
+                    <p class="text-center">Annual Energy Production</p>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm">
+                            <span>Capacity Factor</span>
+                            <span>22.5%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-green-600 h-2.5 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>System Size</span>
+                            <span>1,000 kW</span>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>System Type</span>
+                            <span>Hybrid</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border rounded bg-purple-50">
+                    <h3 class="font-bold text-purple-700">Financial Analysis</h3>
+                    <div class="text-center text-3xl font-bold my-2">7.2 years</div>
+                    <p class="text-center">Payback Period</p>
+                    <div class="mt-4">
+                        <div class="flex justify-between text-sm">
+                            <span>ROI</span>
+                            <span>14.8%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div class="bg-purple-600 h-2.5 rounded-full" style="width: 74%"></div>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>NPV</span>
+                            <span>$1.2M</span>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <div class="flex justify-between text-sm">
+                            <span>LCOE</span>
+                            <span>$0.068/kWh</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Energy Production Forecast</h3>
+                    <canvas id="energy-chart" width="400" height="250"></canvas>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Financial Projection</h3>
+                    <canvas id="financial-chart" width="400" height="250"></canvas>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Site Location</h3>
+                    <div id="site-map" style="height: 300px;"></div>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Project Summary</h3>
+                    <table class="w-full mt-2">
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">Location</td>
+                            <td class="py-2">California, USA</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">Coordinates</td>
+                            <td class="py-2">37.7749° N, 122.4194° W</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">System Type</td>
+                            <td class="py-2">Hybrid (Solar + Wind)</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">System Size</td>
+                            <td class="py-2">1,000 kW</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">Annual Production</td>
+                            <td class="py-2">1,730 MWh</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">Installation Cost</td>
+                            <td class="py-2">$1,650,000</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-2 font-semibold">Annual Savings</td>
+                            <td class="py-2">$207,600</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 font-semibold">Carbon Offset</td>
+                            <td class="py-2">1,225 tons CO₂/year</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="p-4 border rounded my-4">
+                <h3 class="font-bold">Recommendations</h3>
+                <ul class="list-disc pl-5 mt-2">
+                    <li class="mb-2">The selected site shows excellent potential for a hybrid renewable energy system, with particularly strong solar resources.</li>
+                    <li class="mb-2">Consider increasing the wind turbine height to 100m to improve wind energy capture and overall system efficiency.</li>
+                    <li class="mb-2">Adding 500 kWh of battery storage would improve self-consumption from 30% to approximately 65%, significantly enhancing project economics.</li>
+                    <li class="mb-2">Explore available state incentives in California to further improve financial returns beyond the federal tax credit.</li>
+                    <li>Consider phased implementation, starting with the solar component, to optimize cash flow and reduce initial capital requirements.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Main JavaScript -->
+    <script src="/assets/js/main.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map
+            const map = L.map('site-map').setView([37.7749, -122.4194], 10);
+            
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Add marker for site location
+            L.marker([37.7749, -122.4194]).addTo(map)
+                .bindPopup('Project Site<br>Suitability Score: 85%')
+                .openPopup();
+            
+            // Initialize energy production chart
+            const energyCtx = document.getElementById('energy-chart').getContext('2d');
+            const energyChart = new Chart(energyCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [
+                        {
+                            label: 'Solar (MWh)',
+                            data: [90, 110, 140, 160, 180, 190, 200, 190, 160, 130, 100, 80],
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)'
+                        },
+                        {
+                            label: 'Wind (MWh)',
+                            data: [110, 105, 100, 95, 90, 85, 85, 90, 95, 100, 105, 110],
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Energy (MWh)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Initialize financial projection chart
+            const financialCtx = document.getElementById('financial-chart').getContext('2d');
+            const financialChart = new Chart(financialCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: 25}, (_, i) => i + 1), // Years 1-25
+                    datasets: [
+                        {
+                            label: 'Cumulative Cash Flow ($)',
+                            data: [
+                                -1221000, // Initial investment (after incentives)
+                                -1048400,
+                                -875800,
+                                -703200,
+                                -530600,
+                                -358000,
+                                -185400,
+                                -12800,
+                                159800, // Break-even point
+                                332400,
+                                505000,
+                                677600,
+                                850200,
+                                1022800,
+                                1195400,
+                                1368000,
+                                1540600,
+                                1713200,
+                                1885800,
+                                2058400,
+                                2231000,
+                                2403600,
+                                2576200,
+                                2748800,
+                                2921400
+                            ],
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Cumulative Cash Flow ($)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

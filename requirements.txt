@@ -1,0 +1,7 @@
+Flask
+pymongo
+numpy
+pandas
+scikit-learn
+requests
+geojson

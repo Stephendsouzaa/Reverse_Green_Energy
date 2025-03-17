@@ -1,0 +1,6 @@
+[
+    {"location": "California", "latitude": 36.7783, "longitude": -119.4179, "land_suitability": "High"},
+    {"location": "Arizona", "latitude": 34.0489, "longitude": -111.0937, "land_suitability": "Medium"},
+    {"location": "Texas", "latitude": 31.9686, "longitude": -99.9018, "land_suitability": "High"}
+  ]
+  

@@ -1,0 +1,808 @@
+@import url('tailwind.css');
+@import url('custom.css');
+
+:root {
+    --primary-color: #3B82F6;
+    --secondary-color: #10B981;
+    --text-color: #FFFFFF;
+    --light-text: #FFFFFF;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    z-index: 1;
+    background-color: #000000;
+    background: #000000;
+}
+
+#three-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-color: #000000;
+}
+
+#three-background canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+.container {
+    position: relative;
+    z-index: 2;
+    background: #000000;
+    backdrop-filter: blur(5px);
+}
+
+.dark-mode {
+    color: var(--light-text);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+header {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 1rem 0;
+    color: whitesmoke;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 1rem;
+}
+
+header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+header nav {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+header nav ul {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 3;
+}
+
+header nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 1.2rem 2.5rem;
+    border-radius: 1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    position: relative;
+    margin: 0.75rem;
+    background: rgb(0, 0, 0);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgb(255, 255, 255);
+    letter-spacing: 0.5px;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    min-width: 220px;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+header nav ul li a:hover {
+    background: rgb(0, 0, 0);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+header nav ul li a.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+header nav ul li a.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 1.5s infinite;
+}
+
+@keyframes shine {
+    to {
+        left: 100%;
+    }
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    position: relative;
+    margin: 0 0.25rem;
+    background: rgb(0, 0, 0);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-link.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shine 1.5s infinite;
+}
+
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    header nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+    .nav-link {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+.nav-link:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+    color: white;
+    background-color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #2563EB;
+}
+
+.card {
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.05);
+    position: relative;
+    z-index: 2;
+}
+
+.btn-secondary {
+    color: white;
+    background-color: var(--secondary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+}
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.alert-info {
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.alert-success {
+    color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.alert-warning {
+    color: #FFFFFF;
+    background-color: rgba(255, 0, 0, 0.9);
+}
+form input, form select, form textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+    font-size: 1rem;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+form button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover {
+    background-color: #2563EB; /* Darker blue */
+}
+
+/* Card Styles */
+.border {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.rounded {
+    border-radius: 0.5rem;
+}
+
+/* Button Styles */
+.bg-blue-500 {
+    background-color: var(--secondary-color);
+}
+
+.bg-green-500 {
+    background-color: var(--primary-color);
+}
+
+.text-white {
+    color: white;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.rounded {
+    border-radius: 0.25rem;
+}
+
+/* Grid Styles */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Spacing */
+.my-4 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+/* Text Styles */
+.text-center {
+    text-align: center;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+/* Map Styles */
+#map, #site-map, #solar-heatmap, #wind-heatmap {
+    width: 100%;
+    border-radius: 0.25rem;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.5rem;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+th {
+    background-color: rgb(255, 255, 255);
+    font-weight: 600;
+}
+
+/* Footer Styles */
+footer {
+    background-color: rgba(31, 41, 55, 0.8);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 2;
+    backdrop-filter: blur(5px);
+}
+form input, form select, form textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    width: 100%;
+    font-size: 1rem;
+}
+
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+form button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+form button:hover {
+    background-color: #2563EB; /* Darker blue */
+}
+
+/* Card Styles */
+.border {
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.rounded {
+    border-radius: 0.5rem;
+}
+
+/* Button Styles */
+.bg-blue-500 {
+    background-color: var(--secondary-color);
+}
+
+.bg-green-500 {
+    background-color: var(--primary-color);
+}
+
+.text-white {
+    color: white;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.rounded {
+    border-radius: 0.25rem;
+}
+
+/* Grid Styles */
+.grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    
+    .md\:grid-cols-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Spacing */
+.my-4 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mt-2 {
+    margin-top: 0.5rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+/* Text Styles */
+.text-center {
+    text-align: center;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+/* Map Styles */
+#map, #site-map, #solar-heatmap, #wind-heatmap {
+    width: 100%;
+    border-radius: 0.25rem;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.5rem;
+    text-align: left;
+    border: 1px solid var(--border-color);
+}
+
+th {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--dark-bg);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none;
+}
+
+.w-full {
+    width: 100%;
+}
+
+/* Chart Styles */
+canvas {
+    max-width: 100%;
+}
+
+/* Progress Bar Styles */
+.bg-gray-200 {
+    background-color: #E5E7EB;
+}
+
+.rounded-full {
+    border-radius: 9999px;
+}
+
+.h-2\.5 {
+    height: 0.625rem;
+}
+
+.bg-blue-600 {
+    background-color: #2563EB;
+}
+
+.bg-green-600 {
+    background-color: #059669;
+}
+
+.bg-purple-600 {
+    background-color: #7C3AED;
+}
+
+/* Color Backgrounds */
+.bg-blue-50 {
+    background-color: #EFF6FF;
+}
+
+.bg-green-50 {
+    background-color: #ECFDF5;
+}
+
+.bg-purple-50 {
+    background-color: #F5F3FF;
+}
+
+.text-blue-700 {
+    color: #E6F0FF;
+}
+
+.text-green-700 {
+    color: #E6FFE6;
+}
+
+.text-purple-700 {
+    color: #F0E6FF;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+    header h1 {
+        font-size: 1.5rem;
+    }
+    
+    nav li a {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+/* 🌟 General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+/* 🎨 Colorful Background Effect */
+body {
+    background: #000000;
+    background-size: 400% 400%;
+    animation: none;
+}
+
+/* 🔥 Animated Gradient Background */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🌟 Navigation Bar */
+nav {
+    background: rgb(0, 0, 0);
+    padding: 15px 0;
+    box-shadow: 0px 4px 15px rgb(255, 255, 255);
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease-in-out;
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgb(0, 0, 0);
+}
+
+/* 🎭 Hover Effect for Navbar */
+nav:hover {
+    background: rgba(0, 0, 0, 0.9);
+}
+
+/* 📌 Navigation Menu */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 0;
+}
+
+/* 🖌️ Menu Items */
+nav ul li {
+    position: relative;
+}
+
+/* 🎨 Navigation Links */
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 12px 22px;
+    border-radius: 10px;
+    transition: all 0.4s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 8px rgb(255, 255, 255);
+}
+
+/* 🌟 Gradient Background Hover Effect */
+nav ul li a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg,rgb(0, 4, 255),rgb(255, 0, 0),rgb(47, 0, 255));
+    transition: left 0.5s ease-in-out;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+nav ul li a:hover::before {
+    left: 0;
+}
+
+/* 🎇 Neon Glow Effect */
+nav ul li a:hover {
+    color: #fff;
+    text-shadow: 0px 0px 8px rgba(255, 255, 255, 0.9);
+    transform: scale(1.1);
+}
+
+/* 🔥 Floating Animation */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+nav ul li a {
+    animation: floating 3s infinite ease-in-out;
+}
+
+/* 🔵 Active Link */
+nav ul li a.bg-green-500 {
+    background: linear-gradient(120deg,rgb(255, 0, 0),rgb(255, 0, 0));
+    color: white;
+    font-weight: bold;
+}
+
+/* 💥 Button Click Ripple Effect */
+nav ul li a:active {
+    transform: scale(0.95);
+    transition: all 0.1s;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav ul li a {
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+    }
+}

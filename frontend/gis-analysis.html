@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terrain Analysis Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .chart-container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .recommendations {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        .location-info {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        #updateButton {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        #updateButton:hover {
+            background-color: #34495e;
+        }
+        .loading {
+            display: none;
+            margin: 10px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Terrain Analysis Results 🌄</h1>
+
+    <div class="location-info">
+        <h2>Current Location</h2>
+        <p id="locationDisplay">Fetching location...</p>
+        <button id="updateButton" onclick="updateTerrainData()">Update Data</button>
+        <div id="loading" class="loading">Updating terrain data...</div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Elevation Profile</h2>
+        <canvas id="elevationChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Soil Composition</h2>
+        <canvas id="soilChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Risk Assessment</h2>
+        <canvas id="riskChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Drainage Pattern</h2>
+        <canvas id="drainageChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Slope Analysis</h2>
+        <canvas id="slopeChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Surface Roughness</h2>
+        <canvas id="roughnessChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+        <h2>Water Table Depth</h2>
+        <canvas id="waterTableChart"></canvas>
+    </div>
+
+    <div class="recommendations">
+        <h2>Recommendations</h2>
+        <ul id="recommendationsList"></ul>
+    </div>
+
+    <script>
+        let charts = {};
+        let currentLocation = null;
+
+        // Initialize charts with empty data
+        function initializeCharts() {
+            charts.elevation = new Chart(document.getElementById('elevationChart'), {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Elevation (m)',
+                        data: [],
+                        borderColor: '#3498db',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Elevation (meters)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            charts.soil = new Chart(document.getElementById('soilChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Clay', 'Silt', 'Sand', 'Organic Matter'],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#f1c40f',
+                            '#3498db',
+                            '#2ecc71'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right'
+                        }
+                    }
+                }
+            });
+
+            // Initialize other charts similarly
+            // ... (other chart initializations)
+        }
+
+        // Fetch terrain data from backend
+        async function fetchTerrainData(lat, lng) {
+            try {
+                const response = await fetch(`/api/terrain-analysis?lat=${lat}&lng=${lng}`);
+                if (!response.ok) throw new Error('Failed to fetch terrain data');
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching terrain data:', error);
+                return null;
+            }
+        }
+
+        // Update charts with new data
+        function updateCharts(data) {
+            // Update Elevation Chart
+            charts.elevation.data.labels = data.elevation.labels;
+            charts.elevation.data.datasets[0].data = data.elevation.values;
+            charts.elevation.update();
+
+            // Update Soil Chart
+            charts.soil.data.datasets[0].data = data.soil.composition;
+            charts.soil.update();
+
+            // Update other charts
+            // ... (update other charts with real data)
+
+            // Update recommendations
+            updateRecommendations(data.recommendations);
+        }
+
+        // Get current location
+        function getCurrentLocation() {
+            return new Promise((resolve, reject) => {
+                if (!navigator.geolocation) {
+                    reject(new Error('Geolocation is not supported'));
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve(position.coords),
+                    error => reject(error)
+                );
+            });
+        }
+
+        // Update recommendations list
+        function updateRecommendations(recommendations) {
+            const recommendationsList = document.getElementById('recommendationsList');
+            recommendationsList.innerHTML = '';
+            recommendations.forEach(rec => {
+                const li = document.createElement('li');
+                li.textContent = rec;
+                recommendationsList.appendChild(li);
+            });
+        }
+
+        // Main update function
+        async function updateTerrainData() {
+            const loadingDiv = document.getElementById('loading');
+            loadingDiv.style.display = 'block';
+
+            try {
+                const coords = await getCurrentLocation();
+                currentLocation = coords;
+                document.getElementById('locationDisplay').textContent = 
+                    `Latitude: ${coords.latitude.toFixed(4)}, Longitude: ${coords.longitude.toFixed(4)}`;
+
+                const terrainData = await fetchTerrainData(coords.latitude, coords.longitude);
+                if (terrainData) {
+                    updateCharts(terrainData);
+                }
+            } catch (error) {
+                console.error('Error updating terrain data:', error);
+                alert('Failed to update terrain data. Please try again.');
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCharts();
+            updateTerrainData(); // Initial data fetch
+
+            // Set up auto-refresh every 5 minutes
+            setInterval(updateTerrainData, 300000);
+        });
+    </script>
+</body>
+</html>

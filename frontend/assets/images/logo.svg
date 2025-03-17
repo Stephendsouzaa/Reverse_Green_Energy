@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Circular background -->
+  <circle cx="100" cy="100" r="90" fill="#0A192F" />
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#00C8FF" stroke-width="2" stroke-opacity="0.6" />
+  
+  <!-- Solar panel -->
+  <g transform="translate(60, 70) rotate(-15)">
+    <rect x="0" y="0" width="40" height="50" fill="#1E293B" stroke="#FFD700" stroke-width="2" rx="2" />
+    <line x1="0" y1="10" x2="40" y2="10" stroke="#FFD700" stroke-width="1" />
+    <line x1="0" y1="20" x2="40" y2="20" stroke="#FFD700" stroke-width="1" />
+    <line x1="0" y1="30" x2="40" y2="30" stroke="#FFD700" stroke-width="1" />
+    <line x1="0" y1="40" x2="40" y2="40" stroke="#FFD700" stroke-width="1" />
+    <line x1="10" y1="0" x2="10" y2="50" stroke="#FFD700" stroke-width="1" />
+    <line x1="20" y1="0" x2="20" y2="50" stroke="#FFD700" stroke-width="1" />
+    <line x1="30" y1="0" x2="30" y2="50" stroke="#FFD700" stroke-width="1" />
+  </g>
+  
+  <!-- Wind turbine -->
+  <g transform="translate(110, 60)">
+    <line x1="0" y1="0" x2="0" y2="60" stroke="#FFFFFF" stroke-width="3" />
+    <circle cx="0" cy="0" r="5" fill="#22C55E" />
+    
+    <!-- Turbine blades -->
+    <g transform="rotate(0)">
+      <path d="M0,0 L40,-10 L45,0 Z" fill="#22C55E" opacity="0.9" />
+    </g>
+    <g transform="rotate(120)">
+      <path d="M0,0 L40,-10 L45,0 Z" fill="#22C55E" opacity="0.9" />
+    </g>
+    <g transform="rotate(240)">
+      <path d="M0,0 L40,-10 L45,0 Z" fill="#22C55E" opacity="0.9" />
+    </g>
+  </g>
+  
+  <!-- Energy pulse effect -->
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#00C8FF" stroke-width="1" stroke-dasharray="5,5" opacity="0.5">
+    <animate attributeName="r" values="75;85;75" dur="3s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Text: RGE -->
+  <text x="100" y="150" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#FFFFFF">RGE</text>
+</svg>

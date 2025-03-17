@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Analysis Results</title>
+    <link href="/assets/css/tailwind.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Site Details Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Site Details</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-gray-600">Place Name:</p>
+                    <p class="font-semibold" id="place-name">Gadhepadu, Singareni mandal, ಖಮ್ಮಂ ಜಿಲ್ಲೆ, Telangana, India</p>
+                </div>
+                <div>
+                    <p class="text-gray-600">Coordinates:</p>
+                    <p class="font-semibold" id="coordinates">17.4871, 80.3281</p>
+                </div>
+                <div>
+                    <p class="text-gray-600">Elevation:</p>
+                    <p class="font-semibold" id="elevation">189 m</p>
+                </div>
+                <div>
+                    <p class="text-gray-600">Site Type:</p>
+                    <p class="font-semibold" id="site-type">Solar</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overall Suitability Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Overall Suitability</h2>
+            <div class="flex items-center justify-between">
+                <div class="text-4xl font-bold text-green-600" id="suitability-score">88%</div>
+                <div class="w-2/3 bg-gray-200 rounded-full h-4">
+                    <div class="bg-green-600 h-4 rounded-full" style="width: 88%"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detailed Analysis Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Detailed Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Solar Irradiance Potential</h3>
+                    <p class="text-3xl font-bold text-blue-600">83%</p>
+                </div>
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Land Suitability</h3>
+                    <p class="text-3xl font-bold text-green-600">98%</p>
+                </div>
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Grid Proximity</h3>
+                    <p class="text-3xl font-bold text-yellow-600">83%</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Environmental Impact Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Environmental Impact Assessment</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="p-4 bg-green-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Carbon Offset</h3>
+                    <p class="text-xl font-bold text-green-600">99 tons CO2/year</p>
+                </div>
+                <div class="p-4 bg-blue-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Land Use Impact</h3>
+                    <p class="text-xl font-bold text-blue-600">Minimal</p>
+                </div>
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Wildlife Impact</h3>
+                    <p class="text-xl font-bold text-yellow-600">Low</p>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg">
+                    <h3 class="font-bold mb-2">Water Resources</h3>
+                    <p class="text-xl font-bold text-purple-600">Adequate</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Analysis Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Financial Analysis</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="space-y-4">
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <h3 class="font-bold mb-2">ROI (5-year)</h3>
+                        <p class="text-3xl font-bold text-green-600">66%</p>
+                    </div>
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <h3 class="font-bold mb-2">Initial Investment</h3>
+                        <p class="text-2xl font-bold text-blue-600">$200,000</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <h3 class="font-bold mb-2">Operating Costs</h3>
+                        <p class="text-2xl font-bold text-yellow-600">$1,890/kW/year</p>
+                    </div>
+                    <div class="p-4 bg-purple-50 rounded-lg">
+                        <h3 class="font-bold mb-2">Grid Connection Cost</h3>
+                        <p class="text-2xl font-bold text-purple-600">$17,000</p>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h3 class="font-bold mb-2">Payback Period</h3>
+                        <p class="text-2xl font-bold text-indigo-600">1 year</p>
+                    </div>
+                    <div class="p-4 bg-pink-50 rounded-lg">
+                        <h3 class="font-bold mb-2">Annual Revenue Potential</h3>
+                        <p class="text-2xl font-bold text-pink-600">$83,000/kW</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Recommendations Section -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold mb-4">Technical Recommendations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold mb-3">Implementation Strategy</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>Consider optimal panel angles for maximum solar gain</li>
+                        <li>Implement standard solar panels</li>
+                        <li>Consider ground-mounted systems</li>
+                        <li>Consider power storage solutions</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-3">Development Phases</h3>
+                    <div class="space-y-4">
+                        <div class="p-2 bg-blue-50 rounded">
+                            <p class="font-semibold">Phase 1: Immediate development</p>
+                        </div>
+                        <div class="p-2 bg-green-50 rounded">
+                            <p class="font-semibold">Phase 2: Infrastructure development</p>
+                        </div>
+                        <div class="p-2 bg-yellow-50 rounded">
+                            <p class="font-semibold">Phase 3: Optimization</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Overall Assessment Section -->
+        <section class="bg-green-50 rounded-lg shadow-md p-6">
+            <h2 class="text-2xl font-bold mb-4">Overall Assessment</h2>
+            <div class="bg-white rounded-lg p-4">
+                <p class="text-xl font-bold text-green-600 mb-2">Highly Recommended</p>
+                <p class="text-gray-700">This site is recommended for solar farm development based on its excellent solar potential, favorable land characteristics, and strong grid infrastructure. The combination of high solar irradiance, suitable terrain, and existing infrastructure makes this an ideal location.</p>
+            </div>
+        </section>
+
+        <!-- Action Button -->
+        <div class="mt-8 text-center">
+            <a href="/frontend/energy-prediction.html" class="inline-block bg-blue-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors">
+                Proceed to Energy Prediction
+            </a>
+        </div>
+    </div>
+
+    <script src="/assets/js/site-analysis-data.js"></script>
+    <script src="/assets/js/site-analysis.js"></script>
+</body>
+</html>

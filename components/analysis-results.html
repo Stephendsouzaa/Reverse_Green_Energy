@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<div class="analysis-results-container p-6 bg-white rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Comprehensive Site Analysis Results</h2>
+    
+    <!-- Terrain Analysis Section -->
+    <div class="mb-8 p-4 bg-gray-50 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">🌄 Terrain Analysis</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Elevation Analysis -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Elevation Analysis</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Elevation:</span>
+                        <span id="elevation-value" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Slope:</span>
+                        <span id="slope-value" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Surface Roughness:</span>
+                        <span id="roughness-value" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Soil Analysis -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Soil Analysis</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Soil Type:</span>
+                        <span id="soil-type" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Foundation Strength:</span>
+                        <span id="foundation-strength" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Erosion Risk:</span>
+                        <span id="erosion-risk" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Renewable Energy Potential -->
+    <div class="mb-8 p-4 bg-gray-50 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">⚡ Renewable Energy Potential</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Solar Potential -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Solar Potential</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Solar Irradiance:</span>
+                        <span id="solar-irradiance" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Annual Sun Hours:</span>
+                        <span id="sun-hours" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Energy Generation Potential:</span>
+                        <span id="solar-potential" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Wind Potential -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Wind Potential</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Average Wind Speed:</span>
+                        <span id="wind-speed" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Wind Power Density:</span>
+                        <span id="wind-density" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Turbine Suitability:</span>
+                        <span id="turbine-suitability" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Environmental Factors -->
+    <div class="mb-8 p-4 bg-gray-50 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4 text-gray-700">🌿 Environmental Assessment</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Protected Areas -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Protected Areas</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Distance to Protected Areas:</span>
+                        <span id="protected-distance" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Environmental Sensitivity:</span>
+                        <span id="env-sensitivity" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Wildlife Corridors:</span>
+                        <span id="wildlife-corridors" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Infrastructure -->
+            <div class="analysis-card p-4 bg-white rounded shadow">
+                <h4 class="font-medium mb-2">Infrastructure</h4>
+                <ul class="space-y-2">
+                    <li class="flex justify-between">
+                        <span>Grid Connection:</span>
+                        <span id="grid-connection" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Road Access:</span>
+                        <span id="road-access" class="font-medium">Loading...</span>
+                    </li>
+                    <li class="flex justify-between">
+                        <span>Site Accessibility:</span>
+                        <span id="site-accessibility" class="font-medium">Loading...</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recommendations Section -->
+    <div class="p-4 bg-blue-50 rounded-lg">
+        <h3 class="text-xl font-semibold mb-4 text-blue-800">📋 Recommendations</h3>
+        <ul id="recommendations-list" class="list-disc pl-5 space-y-2 text-blue-700">
+            <li>Loading recommendations...</li>
+        </ul>
+    </div>
+</div>

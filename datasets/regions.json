@@ -1,0 +1,6 @@
+[
+    {"region": "West Coast", "states": ["California", "Oregon", "Washington"]},
+    {"region": "Southwest", "states": ["Arizona", "New Mexico", "Nevada"]},
+    {"region": "Midwest", "states": ["Texas", "Oklahoma", "Kansas"]}
+  ]
+  

@@ -1,0 +1,306 @@
+/* 🌍 Site Selection Page Styles - Enhanced */
+
+/* Feature Cards */
+.feature-card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.feature-card h3 {
+    color: #ffffff;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.feature-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-list li {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.feature-list li i {
+    color: #00C8FF;
+}
+
+.feature-list li strong {
+    color: #ffffff;
+}
+
+/* 📍 Map Container */
+#site-map {
+    height: 350px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+#site-map:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 🎨 Form Styles */
+#site-selection-form {
+    padding: 1.5rem;
+    background: rgb(255, 251, 0);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+#site-selection-form .my-2 {
+    margin: 1.2rem 0;
+}
+
+/* 🔖 Labels */
+#site-selection-form label {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #2d3748;
+    font-size: 1rem;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* 📝 Input & Select Fields */
+#site-selection-form input,
+#site-selection-form select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 1.27rem;
+    transition: all 0.3s ease-in-out;
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+#site-selection-form input:focus,
+#site-selection-form select:focus {
+    outline: none;
+    border-color: #4299e1;
+    box-shadow: 0 0 12px rgba(66, 153, 225, 0.4);
+}
+
+/* 🚫 Readonly Fields */
+#site-selection-form input[readonly] {
+    background-color: rgb(255, 38, 0);
+    color: white;
+    cursor: not-allowed;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 2px dashed rgba(255, 255, 255, 0.5);
+}
+
+/* 🚀 Animated Submit Button */
+#site-selection-form button[type="submit"] {
+    background: linear-gradient(135deg, #4299e1, #2b6cb0);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4);
+    margin-right: 1rem;
+}
+
+#site-selection-form button[type="submit"]:hover {
+    background: linear-gradient(135deg, #3182ce, #2c5282);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.5);
+}
+
+#site-selection-form button[type="submit"]::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+#site-selection-form button[type="submit"]:hover::after {
+    opacity: 1;
+}
+
+/* 🎭 Results Section */
+#results {
+    background-color: black;
+    border: 17px solid rgb(255, 255, 255);
+    border-radius: 12px;
+    color: white;
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: 0 5px 20px rgb(255, 255, 255);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#results:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+#results h4 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color:rgb(255, 255, 255);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+#results p {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+    font-size:  1.5rem;
+    color: white;
+}
+
+#results strong {
+    color: white;
+}
+
+#results .font-bold.text-xl {
+    color: white;
+}
+
+/* ✨ Glowing Effect on Result Button */
+#results button {
+    background: linear-gradient(135deg, #4299e1, #2b6cb0);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4);
+}
+
+#results button:hover {
+    background: linear-gradient(135deg, #3182ce, #2c5282);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.5);
+}
+
+#results button.pdf-export {
+    background: linear-gradient(135deg, #48bb78, #2f855a);
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+    margin-left: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+#results button.pdf-export:hover {
+    background: linear-gradient(135deg, #38a169, #276749);
+    box-shadow: 0 8px 20px rgba(72, 187, 120, 0.5);
+    transform: translateY(-2px);
+}
+
+#results button.pdf-export i {
+    font-size: 1.1rem;
+}
+
+#results button.pdf-export::before {
+    content: '📄';
+    margin-right: 0.5rem;
+}
+
+/* 🎇 Floating Animation */
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+#site-map,
+#site-selection-form,
+#results {
+    animation: float 4s ease-in-out infinite;
+}
+
+/* 🌟 Button Hover Glow */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+}
+
+button:hover {
+    animation: glow 1.5s infinite alternate;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.visualization-section .bg-white {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.visualization-section canvas {
+    max-height: 250px;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}

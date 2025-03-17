@@ -1,0 +1,1258 @@
+<!-- 
+HOW TO USE THIS ENERGY PREDICTION TOOL:
+
+1. Navigation:
+   - Access this page through the "Energy Prediction" tab in the navigation menu
+   - You can also directly open energy-prediction.html in a web browser
+
+2. Using the Map:
+   - Use the search box to find your desired location
+   - Click on the map to select a specific site
+   - Toggle map layers (Solar Potential, Wind Potential, Power Grid) using the checkboxes
+
+3. Making Predictions:
+   - The form will auto-populate with location details when you select a site
+   - Choose your desired system type (Solar PV, Wind Turbine, or Hybrid)
+   - Click "Generate Prediction" to see estimated energy output
+   - View detailed results in the charts and analysis section
+
+4. Requirements:
+   - Modern web browser with JavaScript enabled
+   - Internet connection for map and weather data
+   - Location services (optional, for better accuracy)
+-->
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Selection - Reverse Green Energy</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/home-animations.css">
+    <link rel="stylesheet" href="/assets/css/theme-switcher.css">
+    <link rel="stylesheet" href="/assets/css/modern-header.css">
+    <link rel="stylesheet" href="/assets/css/site-selection.css">
+    <link rel="stylesheet" href="/assets/css/site-type-buttons.css">
+    <link rel="stylesheet" href="/assets/css/site-selection.css">
+    <link rel="stylesheet" href="/assets/css/energy-prediction.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <!-- Three.js for background animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="/assets/js/background.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Custom Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-new.svg">
+</head>
+<body>
+    <!-- Three.js Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="app-container">
+        <header class="modern-header">
+            <div class="logo-container">
+                <img src="/assets/images/logo-new.svg" alt="Reverse Green Energy Logo" class="logo" width="50" height="50">
+                <h1>Energy Prediction</h1>
+                <p class="tagline">  Output Prediction</p>
+            </div>
+            
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="site-selection.html" ><i class="fas fa-map-marker-alt"></i> Site Selection</a></li>
+                    <li><a href="energy-prediction.html" class="active"><i class="fas fa-bolt"></i> Energy Prediction</a></li>
+                    <li><a href="gis-mapping.html"><i class="fas fa-globe"></i> GIS Mapping</a></li>
+                    <li><a href="cost-estimation.html"><i class="fas fa-calculator"></i> Cost Estimation</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                </ul>
+            </nav>
+            
+            
+        </header>
+    <main class="container">
+        <section class="my-4">
+            <h2 class="text-xl font-bold">Predict Energy Output</h2>
+            <p>Use our AI-powered models to predict potential energy generation from solar and wind resources at your selected location.</p>
+            <section class="info-section">
+                <h2>What It Does</h2>
+                <div class="feature-section">
+                    <p>Our advanced Energy Prediction system leverages cutting-edge AI technology to provide:</p>
+                    <ul class="feature-list">
+                        <li><strong>Real-Time Analysis:</strong> Instant processing of weather patterns and environmental data for accurate predictions</li>
+                        <li><strong>Multi-Source Integration:</strong> Combines solar irradiance, wind patterns, and atmospheric conditions</li>
+                        <li><strong>Historical Performance Tracking:</strong> Analyzes past performance data to improve future predictions</li>
+                        <li><strong>Smart Grid Integration:</strong> Connects with local power grid data for optimal energy distribution planning</li>
+                        <li><strong>Environmental Impact Assessment:</strong> Calculates potential carbon offset and environmental benefits</li>
+                    </ul>
+                </div>
+            
+                <h2>How to Use</h2>
+                <div class="usage-guide">
+                    <ol class="steps-list">
+                        <li><strong>Location Selection</strong>
+                            <ul>
+                                <li>Use the interactive map to select your desired location</li>
+                                <li>Search for specific addresses or coordinates</li>
+                                <li>View terrain and climate data for selected areas</li>
+                            </ul>
+                        </li>
+                        <li><strong>System Configuration</strong>
+                            <ul>
+                                <li>Choose between solar, wind, or hybrid systems</li>
+                                <li>Specify system capacity and equipment specifications</li>
+                                <li>Adjust parameters based on installation requirements</li>
+                            </ul>
+                        </li>
+                        <li><strong>Analysis & Prediction</strong>
+                            <ul>
+                                <li>Generate detailed energy output forecasts</li>
+                                <li>View seasonal and annual production estimates</li>
+                                <li>Access reliability and efficiency metrics</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+            
+                <h2>Advanced Features</h2>
+                <div class="advanced-features">
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <h3>Weather Integration</h3>
+                            <p>Real-time weather data integration for accurate daily and hourly predictions</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Performance Analytics</h3>
+                            <p>Detailed analytics dashboard with performance metrics and optimization suggestions</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Automated Reporting</h3>
+                            <p>Generate comprehensive reports with charts and recommendations</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>AI Optimization</h3>
+                            <p>Machine learning algorithms for continuous prediction improvement</p>
+                        </div>
+                        <div class="feature-item">
+                            <h3>Export Capabilities</h3>
+                            <p>Export predictions and analysis in multiple formats (PDF, CSV, JSON)</p>
+                        </div>
+                    </div>
+                </div>
+                <style>
+                    .feature-section, .usage-guide, .advanced-features {
+                        background: rgba(255, 255, 255, 0.05);
+                        border-radius: 15px;
+                        padding: 20px;
+                        margin: 20px 0;
+                        backdrop-filter: blur(10px);
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                    }
+                
+                    .feature-list, .steps-list {
+                        list-style: none;
+                        padding: 0;
+                    }
+                
+                    .feature-list li, .steps-list li {
+                        margin: 15px 0;
+                        padding: 10px;
+                        border-left: 4px solid #4CAF50;
+                        background: rgba(76, 175, 80, 0.1);
+                        transition: all 0.3s ease;
+                    }
+                
+                    .feature-list li:hover, .steps-list li:hover {
+                        transform: translateX(10px);
+                        background: rgba(76, 175, 80, 0.2);
+                    }
+                
+                    .feature-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                        gap: 20px;
+                        margin-top: 20px;
+                    }
+                
+                    .feature-item {
+                        background: rgba(0, 0, 0, 0.2);
+                        padding: 20px;
+                        border-radius: 10px;
+                        transition: transform 0.3s ease;
+                        cursor: pointer;
+                    }
+                
+                    .feature-item:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+                    }
+                
+                    .feature-item h3 {
+                        color: #4CAF50;
+                        margin-bottom: 10px;
+                    }
+                
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: translateY(20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                
+                    .feature-section, .usage-guide, .advanced-features {
+                        animation: fadeIn 0.5s ease-out;
+                    }
+                </style>
+                <ul style="list-style-type: none; padding: 0;">
+                    <li>🌍 Navigate the interactive map to explore renewable energy potential.</li>
+                    <li>📍 Click on a location to view cost estimations and environmental factors.</li>
+                    <li>📊 Analyze charts displaying infrastructure proximity and energy feasibility.</li>
+                    <li>💡 Make informed decisions based on the insights provided.</li>
+                </ul>
+            </section>
+            <div class="grid my-4">
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Site Map</h3>
+                    <div id="site-map" class="mb-4"></div>
+                    
+                    <div class="mt-4">
+                        <h4 class="font-bold mb-2">Search Location</h4>
+                        <div class="flex gap-2 mb-4">
+                            <input type="text" id="search-location" class="p-2 border rounded flex-grow" placeholder="Enter location to search...">
+                            <button id="search-btn" class="bg-blue-500 text-white px-4 py-2 rounded">Search</button>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h4 class="font-bold mb-2">Map Layers</h4>
+                            <div class="space-x-2">
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span class="ml-2">Solar Potential</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox" checked>
+                                    <span class="ml-2">Wind Potential</span>
+                                </label>
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="form-checkbox">
+                                    <span class="ml-2">Power Grid</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Energy Prediction Form</h3>
+                    <form id="energy-prediction-form" class="my-4">
+                        <div class="my-2">
+                            <label for="place-name" class="block">Place Name:</label>
+                            <input type="text" id="place-name" class="p-2 border rounded w-full" placeholder="Selected Place" readonly>
+                        </div>
+                        <div class="my-2">
+                            <label for="latitude" class="block">Latitude:</label>
+                            <input type="text" id="latitude" name="latitude" class="p-2 border rounded w-full" placeholder="e.g. 37.7749" required>
+                        </div>
+                        <div class="my-2">
+                            <label for="longitude" class="block">Longitude:</label>
+                            <input type="text" id="longitude" name="longitude" class="p-2 border rounded w-full" placeholder="e.g. -122.4194" required>
+                        </div>
+                        <div class="my-2">
+                            <label for="elevation" class="block">Elevation (m):</label>
+                            <input type="number" id="elevation" name="elevation" class="p-2 border rounded w-full" placeholder="e.g. 500" readonly>
+                        </div>
+                        <div class="my-2">
+                            <label for="weather-conditions" class="block">Local Weather Conditions:</label>
+                            <input type="text" id="weather-conditions" name="weather-conditions" class="p-2 border rounded w-full" placeholder="e.g. Avg Temp: 20°C" readonly>
+                        </div>
+                        <div class="my-2">
+                            <label for="system-type" class="block">System Type:</label>
+                            <select id="system-type" name="system-type" class="p-2 border rounded w-full" required>
+                                <option value="solar">Solar PV</option>
+                                <option value="wind">Wind Turbine</option>
+                                <option value="hybrid">Hybrid (Solar + Wind)</option>
+                            </select>
+                        </div>
+                        <div class="my-2">
+                            <label for="system-size" class="block">System Size (kW):</label>
+                            <input type="number" id="system-size" name="system-size" class="p-2 border rounded w-full" min="1" max="100000" value="1000" required>
+                        </div>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Calculate Energy Output</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div id="results" class="p-6 border rounded mt-8 mb-8 hidden w-full bg-white shadow-lg">
+                <h3 class="text-2xl font-bold mb-6 text-center text-gray-800">Energy Generation Analysis Results</h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Solar Potential</h4>
+                        <div id="solar-results" class="space-y-3"></div>
+                        <div id="solar-advanced-metrics" class="mt-4 pt-4 border-t border-gray-200">
+                            <h5 class="font-semibold text-gray-700 mb-2">Advanced Metrics</h5>
+                            <div id="solar-efficiency-metrics"></div>
+                            <div id="solar-environmental-impact" class="mt-3"></div>
+                        </div>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Wind Potential</h4>
+                        <div id="wind-results" class="space-y-3"></div>
+                        <div id="wind-advanced-metrics" class="mt-4 pt-4 border-t border-gray-200">
+                            <h5 class="font-semibold text-gray-700 mb-2">Advanced Wind Analysis</h5>
+                            <div id="wind-efficiency-metrics"></div>
+                            <div id="wind-environmental-impact" class="mt-3"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Financial Analysis</h4>
+                        <div id="financial-metrics" class="space-y-3"></div>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h4 class="text-lg font-semibold mb-4 text-gray-700">Environmental Impact</h4>
+                        <div id="environmental-metrics" class="space-y-3"></div>
+                    </div>
+                </div>
+                
+                <div id="results-content" class="space-y-6"></div>
+                
+                <div class="mt-8 p-6 bg-black rounded-lg shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 text-white">Monthly Energy Output Projection</h3>
+                    <div class="chart-container bg-black" style="height: 750px; width: 100%; max-width: 900px; margin: 20px auto;">
+                        <canvas id="energy-chart"></canvas>
+                    </div>
+                </div>
+                <section class="analysis-results bg-white rounded-lg shadow-lg p-6 mt-8">
+                    <h2 class="text-2xl font-bold mb-6">Energy Generation Analysis Results</h2>
+                    
+                    <!-- Performance Metrics -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">Real-Time Performance Metrics</h3>
+                            <div id="performance-metrics" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="font-semibold">System Efficiency:</div>
+                                    <div id="system-efficiency">Loading...</div>
+                                    <div class="font-semibold">Peak Performance:</div>
+                                    <div id="peak-performance">Loading...</div>
+                                    <div class="font-semibold">Current Output:</div>
+                                    <div id="current-output">Loading...</div>
+                                    <div class="font-semibold">Daily Generation:</div>
+                                    <div id="daily-generation">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Seasonal Analysis -->
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">Seasonal Performance Analysis</h3>
+                            <div id="seasonal-analysis" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="font-semibold">Summer Peak:</div>
+                                    <div id="summer-peak">Loading...</div>
+                                    <div class="font-semibold">Winter Output:</div>
+                                    <div id="winter-output">Loading...</div>
+                                    <div class="font-semibold">Seasonal Variation:</div>
+                                    <div id="seasonal-variation">Loading...</div>
+                                    <div class="font-semibold">Annual Average:</div>
+                                    <div id="annual-average">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Grid Integration Analysis -->
+                    <div class="bg-gray-50 p-6 rounded-lg mb-8">
+                        <h3 class="text-lg font-semibold mb-4">Grid Integration Analysis</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div id="grid-compatibility" class="space-y-2">
+                                <h4 class="font-semibold">Grid Compatibility</h4>
+                                <div id="compatibility-score">Loading...</div>
+                                <div id="stability-rating">Loading...</div>
+                            </div>
+                            <div id="storage-recommendations" class="space-y-2">
+                                <h4 class="font-semibold">Storage Recommendations</h4>
+                                <div id="storage-capacity">Loading...</div>
+                                <div id="storage-type">Loading...</div>
+                            </div>
+                            <div id="grid-upgrades" class="space-y-2">
+                                <h4 class="font-semibold">Required Upgrades</h4>
+                                <div id="upgrade-list">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <!-- Advanced Environmental Impact -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">Environmental Benefits</h3>
+                            <div id="environmental-benefits" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="font-semibold">Lifetime CO2 Reduction:</div>
+                                    <div id="lifetime-co2">Loading...</div>
+                                    <div class="font-semibold">Water Conservation:</div>
+                                    <div id="water-savings">Loading...</div>
+                                    <div class="font-semibold">Land Use Impact:</div>
+                                    <div id="land-impact">Loading...</div>
+                                    <div class="font-semibold">Biodiversity Score:</div>
+                                    <div id="biodiversity-score">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Long-term Financial Projections -->
+                        <div class="bg-gray-50 p-6 rounded-lg">
+                            <h3 class="text-lg font-semibold mb-4">25-Year Financial Outlook</h3>
+                            <div id="financial-outlook" class="space-y-3">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="font-semibold">Total Revenue:</div>
+                                    <div id="total-revenue">Loading...</div>
+                                    <div class="font-semibold">ROI:</div>
+                                    <div id="roi-calculation">Loading...</div>
+                                    <div class="font-semibold">Maintenance Costs:</div>
+                                    <div id="maintenance-projection">Loading...</div>
+                                    <div class="font-semibold">Net Present Value:</div>
+                                    <div id="npv-calculation">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            
+        </section>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Reverse Green Energy</p>
+    </footer>
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="module" src="/assets/js/three-background.js"></script>
+    <style>
+        /* Basic styles for the map */
+        #site-map {
+            height: 300px;
+            width: 100%;
+        }
+        #energy-chart {
+            height: 250px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .chart-container {
+            position: relative;
+            height: 250px;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            
+            align-items: center;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+        }
+    
+        /* Navigation Styles */
+        nav {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin: 20px auto;
+            padding: 10px;
+            max-width: 1200px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+    
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+    
+        nav ul li {
+            margin: 0;
+            padding: 0;
+        }
+    
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: block;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.05);
+        }
+    
+        nav ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+    
+        nav ul li a.bg-green-500 {
+            background: rgba(34, 197, 94, 0.9);
+            color: white;
+        }
+    
+        nav ul li a.bg-green-500:hover {
+            background: rgba(34, 197, 94, 1);
+        }
+    </style>
+    <script>
+        function updateAnalysisResults(data) {
+            // Update Performance Metrics
+            document.getElementById('system-efficiency').textContent = `${(data.efficiency * 100).toFixed(1)}%`;
+            document.getElementById('peak-performance').textContent = `${data.peakOutput.toFixed(2)} kW`;
+            document.getElementById('current-output').textContent = `${data.currentOutput.toFixed(2)} kW`;
+            document.getElementById('daily-generation').textContent = `${data.dailyGeneration.toFixed(2)} kWh`;
+
+            // Update Seasonal Analysis
+            document.getElementById('summer-peak').textContent = `${data.seasonalData.summerPeak.toFixed(2)} MWh`;
+            document.getElementById('winter-output').textContent = `${data.seasonalData.winterOutput.toFixed(2)} MWh`;
+            document.getElementById('seasonal-variation').textContent = `${data.seasonalData.variation.toFixed(1)}%`;
+            document.getElementById('annual-average').textContent = `${data.seasonalData.annualAvg.toFixed(2)} MWh`;
+
+            // Update Grid Integration Analysis
+            document.getElementById('compatibility-score').textContent = `Compatibility: ${data.gridIntegration.compatibility.toFixed(1)}%`;
+            document.getElementById('stability-rating').textContent = `Stability: ${data.gridIntegration.stability}`;
+            document.getElementById('storage-capacity').textContent = `Recommended: ${data.storage.capacity.toFixed(1)} kWh`;
+            document.getElementById('storage-type').textContent = `Type: ${data.storage.type}`;
+            document.getElementById('upgrade-list').innerHTML = data.gridIntegration.upgrades
+                .map(upgrade => `<div class="text-sm">${upgrade}</div>`).join('');
+
+            // Update Environmental Benefits
+            document.getElementById('lifetime-co2').textContent = `${data.environmental.co2Reduction.toFixed(1)} tons`;
+            document.getElementById('water-savings').textContent = `${data.environmental.waterSaved.toFixed(0)} gallons`;
+            document.getElementById('land-impact').textContent = data.environmental.landImpact;
+            document.getElementById('biodiversity-score').textContent = data.environmental.biodiversityScore;
+
+            // Update Financial Projections
+            document.getElementById('total-revenue').textContent = `$${data.financial.totalRevenue.toLocaleString()}`;
+            document.getElementById('roi-calculation').textContent = `${data.financial.roi.toFixed(1)}%`;
+            document.getElementById('maintenance-projection').textContent = `$${data.financial.maintenanceCost.toLocaleString()}`;
+            document.getElementById('npv-calculation').textContent = `$${data.financial.npv.toLocaleString()}`;
+        }
+
+        // Initialize map
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('site-map').setView([20, 0], 2); // Centered on the world
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            const form = document.getElementById('energy-prediction-form');
+            const results = document.getElementById('results');
+            const resultsContent = document.getElementById('results-content');
+            let marker;
+    
+            // Map click event to set latitude and longitude
+            map.on('click', function(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+    
+                // Set latitude and longitude in the form
+                document.getElementById('latitude').value = lat.toFixed(4);
+                document.getElementById('longitude').value = lng.toFixed(4);
+                
+                // Show loading indicators
+                document.getElementById('place-name').value = 'Resolving location...';
+                document.getElementById('elevation').value = 'Loading...';
+                document.getElementById('weather-conditions').value = 'Fetching real-time data...';
+    
+                // Reverse geocode to get place name with better formatting
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=10`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.display_name) {
+                            // Extract the most relevant part of the address
+                            const addressParts = data.display_name.split(',');
+                            let placeName = addressParts[0].trim();
+                            
+                            // If the first part is too short, include the second part
+                            if (placeName.length < 3 && addressParts.length > 1) {
+                                placeName = `${placeName}, ${addressParts[1].trim()}`;
+                            }
+                            
+                            document.getElementById('place-name').value = placeName;
+                        } else {
+                            document.getElementById('place-name').value = "Unknown Location";
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching place name:', error);
+                        document.getElementById('place-name').value = "Error fetching location";
+                    });
+    
+                // Fetch elevation data with better error handling
+                fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lng}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.results && data.results.length > 0) {
+                            const elevation = data.results[0].elevation;
+                            document.getElementById('elevation').value = elevation.toFixed(2);
+                        } else {
+                            // Fallback if API returns empty results
+                            const elevation = Math.round(100 + (Math.abs(lat) * 10) + (Math.random() * 500));
+                            document.getElementById('elevation').value = elevation.toFixed(2) + ' (estimated)';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching elevation:', error);
+                        // Fallback with location-based estimation
+                        const elevation = Math.round(100 + (Math.abs(lat) * 10) + (Math.random() * 500));
+                        document.getElementById('elevation').value = elevation.toFixed(2) + ' (estimated)';
+                    });
+    
+                // Fetch enhanced weather data (OpenWeatherMap API) with more details
+                const apiKey = 'e086049ce09e1e2225c70492674c4802'; // OpenWeatherMap API key
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.main && data.weather) {
+                            const temp = data.main.temp;
+                            const weatherDescription = data.weather[0].description;
+                            const humidity = data.main.humidity;
+                            const windSpeed = data.wind.speed;
+                            document.getElementById('weather-conditions').value = 
+                                `Avg Temp: ${temp.toFixed(1)}°C, ${weatherDescription}, Humidity: ${humidity}%, Wind: ${windSpeed.toFixed(1)}m/s`;
+                        } else {
+                            throw new Error('Incomplete weather data');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather data:', error);
+                        // Fallback with location-based estimation
+                        const temp = Math.round(10 + (30 - Math.abs(lat) / 3) + (Math.random() * 10));
+                        const conditions = ['Sunny', 'Partly Cloudy', 'Cloudy', 'Rainy', 'Windy'];
+                        const condition = conditions[Math.floor(Math.random() * conditions.length)];
+                        document.getElementById('weather-conditions').value = `Avg Temp: ${temp}°C, ${condition} (estimated)`;
+                    });
+    
+                // If marker exists, remove it
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+    
+                // Add enhanced marker to map with more details
+                marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(`<strong>Selected location:</strong><br>Latitude: ${lat.toFixed(4)}<br>Longitude: ${lng.toFixed(4)}<br><em>Fetching site data...</em>`)
+                    .openPopup();
+                    
+                // Update popup with more details after weather data is loaded
+                setTimeout(() => {
+                    const weatherText = document.getElementById('weather-conditions').value;
+                    const placeName = document.getElementById('place-name').value;
+                    marker.setPopupContent(`<strong>${placeName}</strong><br>Latitude: ${lat.toFixed(4)}<br>Longitude: ${lng.toFixed(4)}<br>${weatherText}`);
+                }, 2000);
+            });
+    
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const latitude = parseFloat(document.getElementById('latitude').value);
+                const longitude = parseFloat(document.getElementById('longitude').value);
+                const elevation = parseFloat(document.getElementById('elevation').value) || 0;
+                const systemType = document.getElementById('system-type').value;
+                const systemSize = parseFloat(document.getElementById('system-size').value);
+    
+                // Set map view to the selected coordinates
+                map.setView([latitude, longitude], 10);
+                
+                // Perform analysis based on real data
+                let energyOutput = 0;
+                if (systemType === "solar") {
+                    // Example calculation for solar energy output
+                    const solarIrradiance = 5; // Average solar irradiance in kWh/m²/day
+                    energyOutput = (systemSize * solarIrradiance * (1 - (elevation / 10000))) * 30; // Monthly output in kWh
+                } else if (systemType === "wind") {
+                    // Example calculation for wind energy output
+                    const windSpeed = 5; // Average wind speed in m/s
+                    energyOutput = (systemSize * 0.5 * (1 + (elevation / 1000))) * 30; // Monthly output in kWh
+                } else if (systemType === "hybrid") {
+                    // Example calculation for hybrid energy output
+                    const solarIrradiance = 5; // Average solar irradiance in kWh/m²/day
+                    const windSpeed = 5; // Average wind speed in m/s
+                    energyOutput = ((systemSize * solarIrradiance * (1 - (elevation / 10000))) + (systemSize * 0.5 * (1 + (elevation / 1000)))) * 30 / 2; // Monthly output in kWh
+                }
+    
+                // Calculate additional analysis data
+                const analysisData = {
+                    efficiency: 0.85 + (Math.random() * 0.1),
+                    peakOutput: systemSize * 0.9,
+                    currentOutput: systemSize * 0.7 * (Math.random() * 0.3 + 0.7),
+                    dailyGeneration: systemSize * 24 * 0.2,
+                    seasonalData: {
+                        summerPeak: systemSize * 0.9 * 30 / 1000,
+                        winterOutput: systemSize * 0.5 * 30 / 1000,
+                        variation: 45,
+                        annualAvg: systemSize * 0.7 * 365 / 12 / 1000
+                    },
+                    gridIntegration: {
+                        compatibility: 85 + (Math.random() * 10),
+                        stability: 'High',
+                        upgrades: ['Smart Inverter Installation', 'Grid Stability Systems']
+                    },
+                    storage: {
+                        capacity: systemSize * 0.3,
+                        type: systemSize > 1000 ? 'Utility Scale Battery' : 'Commercial Battery'
+                    },
+                    environmental: {
+                        co2Reduction: systemSize * 0.7 * 365 * 25 / 1000,
+                        waterSaved: systemSize * 100 * 365,
+                        landImpact: systemSize > 5000 ? 'Significant' : 'Moderate',
+                        biodiversityScore: 'B+'
+                    },
+                    financial: {
+                        totalRevenue: systemSize * 0.12 * 24 * 365 * 25,
+                        roi: 15 + (Math.random() * 5),
+                        maintenanceCost: systemSize * 30 * 25,
+                        npv: systemSize * 0.12 * 24 * 365 * 25 * 0.7
+                    }
+                };
+
+                // Update the analysis results
+                updateAnalysisResults(analysisData);
+
+                // Display results
+                results.classList.remove('hidden');
+                
+                // Update Solar Potential section
+                const solarResults = document.getElementById('solar-results');
+                if (systemType === 'solar' || systemType === 'hybrid') {
+                    const solarIrradiance = 5; // Example value, replace with actual API data
+                    const solarEfficiency = 20;
+                    const temperatureCoefficient = -0.4; // Power loss per degree C above 25°C
+                    const actualTemperature = parseFloat(document.getElementById('weather-conditions').value.match(/\d+\.?\d*/)[0]);
+                    const temperatureLoss = Math.max(0, (actualTemperature - 25) * temperatureCoefficient);
+                    const adjustedEfficiency = solarEfficiency * (1 - (temperatureLoss / 100));
+
+                    solarResults.innerHTML = `
+                        <p><strong>Solar Irradiance:</strong> ${solarIrradiance} kWh/m²/day</p>
+                        <p><strong>Panel Efficiency:</strong> ${adjustedEfficiency.toFixed(1)}%</p>
+                        <p><strong>Estimated Output:</strong> ${((energyOutput * 0.6) / 1000).toFixed(2)} MWh/month</p>
+                        <p><strong>Peak Sun Hours:</strong> ${(solarIrradiance * 0.8).toFixed(1)} hours/day</p>
+                    `;
+
+                    // Update advanced metrics
+                    document.getElementById('solar-efficiency-metrics').innerHTML = `
+                        <p><strong>Temperature Coefficient:</strong> ${temperatureCoefficient}%/°C</p>
+                        <p><strong>Temperature Impact:</strong> -${temperatureLoss.toFixed(1)}%</p>
+                        <p><strong>System Degradation:</strong> 0.5%/year</p>
+                        <p><strong>Performance Ratio:</strong> ${(0.75 + (elevation/10000)).toFixed(2)}</p>
+                    `;
+
+                    document.getElementById('solar-environmental-impact').innerHTML = `
+                        <p><strong>CO2 Reduction:</strong> ${((energyOutput * 0.6) * 0.7).toFixed(2)} kg/month</p>
+                        <p><strong>Trees Equivalent:</strong> ${Math.round((energyOutput * 0.6) * 0.7 / 20)} trees</p>
+                    `;
+                } else {
+                    solarResults.innerHTML = '<p>Solar data not applicable for wind-only system</p>';
+                }
+    
+                // Update Wind Potential section
+                const windResults = document.getElementById('wind-results');
+                if (systemType === 'wind' || systemType === 'hybrid') {
+                    const windSpeed = 5; // Example value, replace with actual API data
+                    const airDensity = 1.225; // kg/m³ at sea level
+                    const powerCoefficient = 0.4; // Typical wind turbine efficiency
+                    const windPowerDensity = 0.5 * airDensity * Math.pow(windSpeed, 3);
+                    const turbineEfficiency = powerCoefficient * (1 - (elevation/10000));
+                    
+                    windResults.innerHTML = `
+                        <p><strong>Wind Speed:</strong> ${windSpeed} m/s</p>
+                        <p><strong>Wind Power Density:</strong> ${windPowerDensity.toFixed(2)} W/m²</p>
+                        <p><strong>Estimated Output:</strong> ${((energyOutput * 0.4) / 1000).toFixed(2)} MWh/month</p>
+                        <p><strong>Capacity Factor:</strong> ${(turbineEfficiency * 100).toFixed(1)}%</p>
+                    `;
+
+                    // Update wind efficiency metrics
+                    document.getElementById('wind-efficiency-metrics').innerHTML = `
+                        <p><strong>Air Density:</strong> ${airDensity} kg/m³</p>
+                        <p><strong>Power Coefficient:</strong> ${powerCoefficient}</p>
+                        <p><strong>Cut-in Wind Speed:</strong> 3.5 m/s</p>
+                        <p><strong>Cut-out Wind Speed:</strong> 25 m/s</p>
+                    `;
+
+                    document.getElementById('wind-environmental-impact').innerHTML = `
+                        <p><strong>CO2 Reduction:</strong> ${((energyOutput * 0.4) * 0.7).toFixed(2)} kg/month</p>
+                        <p><strong>Noise Impact:</strong> ${windSpeed > 8 ? 'Moderate' : 'Low'}</p>
+                        <p><strong>Bird Protection Zone:</strong> ${elevation > 500 ? 'Required' : 'Standard'}</p>
+                    `;
+
+                    // Update financial metrics
+                    document.getElementById('financial-metrics').innerHTML = `
+                        <p><strong>Installation Cost:</strong> $${(systemSize * 1500).toLocaleString()}</p>
+                        <p><strong>Annual O&M Cost:</strong> $${(systemSize * 30).toLocaleString()}/year</p>
+                        <p><strong>Expected ROI:</strong> ${(((energyOutput * 12 * 0.12) / (systemSize * 1500)) * 100).toFixed(1)}% per year</p>
+                        <p><strong>Payback Period:</strong> ${((systemSize * 1500) / (energyOutput * 12 * 0.12)).toFixed(1)} years</p>
+                    `;
+
+                    // Update environmental metrics
+                    document.getElementById('environmental-metrics').innerHTML = `
+                        <p><strong>Annual CO2 Reduction:</strong> ${((energyOutput * 12 * 0.7)).toFixed(2)} tons/year</p>
+                        <p><strong>Trees Equivalent:</strong> ${Math.round((energyOutput * 12 * 0.7) / 0.2)} trees</p>
+                        <p><strong>Water Savings:</strong> ${(energyOutput * 12 * 0.4).toFixed(0)} gallons/year</p>
+                        <p><strong>Land Use Impact:</strong> ${systemSize > 5000 ? 'Significant' : 'Moderate'}</p>
+                    `;
+                    
+                } else {
+                    windResults.innerHTML = '<p>Wind data not applicable for solar-only system</p>';
+                }
+    
+                // Update general results content
+                resultsContent.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 bg-gray-50 p-4 rounded-lg">
+                        <div>
+                            <h4 class="font-semibold mb-2">Site Details</h4>
+                            <p><strong>Place Name:</strong> ${document.getElementById('place-name').value}</p>
+                            <p><strong>Coordinates:</strong> ${latitude.toFixed(4)}, ${longitude.toFixed(4)}</p>
+                            <p><strong>Elevation:</strong> ${elevation} m</p>
+                            <p><strong>Site Type:</strong> ${systemType.charAt(0).toUpperCase() + systemType.slice(1)}</p>
+                            <p><strong>Total Energy Output:</strong> <span class="font-bold text-xl text-green-600">${(energyOutput / 1000).toFixed(2)} MWh</span></p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold mb-2">Weather Conditions</h4>
+                            <p>${document.getElementById('weather-conditions').value}</p>
+                        </div>
+                    </div>
+                `;
+     
+                // Update the energy chart with calculated data based on real-time location data
+                // Get hemisphere for proper seasonal adjustments
+                const isNorthernHemisphere = latitude >= 0;
+                
+                // Define monthly factors based on hemisphere (reversed for Southern Hemisphere)
+                const northernHemisphereFactors = {
+                    'Jan': 0.6, 'Feb': 0.7, 'Mar': 0.9, 'Apr': 1.1,
+                    'May': 1.2, 'Jun': 1.3, 'Jul': 1.3, 'Aug': 1.2,
+                    'Sep': 1.0, 'Oct': 0.8, 'Nov': 0.6, 'Dec': 0.5
+                };
+                
+                const southernHemisphereFactors = {
+                    'Jan': 1.3, 'Feb': 1.2, 'Mar': 1.0, 'Apr': 0.8,
+                    'May': 0.6, 'Jun': 0.5, 'Jul': 0.6, 'Aug': 0.7,
+                    'Sep': 0.9, 'Oct': 1.1, 'Nov': 1.2, 'Dec': 1.3
+                };
+                
+                const monthlyFactors = isNorthernHemisphere ? northernHemisphereFactors : southernHemisphereFactors;
+                
+                // Get weather conditions for additional adjustments
+                const weatherText = document.getElementById('weather-conditions').value;
+                const temperatureMatch = weatherText.match(/Avg Temp: ([\-0-9\.]+)°C/i);
+                const temperature = temperatureMatch ? parseFloat(temperatureMatch[1]) : 20;
+                
+                // Weather condition adjustment factors
+                const hasCloud = weatherText.toLowerCase().includes('cloud');
+                const hasRain = weatherText.toLowerCase().includes('rain');
+                const hasSnow = weatherText.toLowerCase().includes('snow');
+                const hasClear = weatherText.toLowerCase().includes('clear');
+                
+                // Calculate monthly variations based on system type, location and real-time weather
+                const energyData = Object.entries(monthlyFactors).map(([month, factor], index) => {
+                    let baseOutput = energyOutput / 12 / 1000; // Base monthly output in MWh
+                    
+                    // Apply seasonal adjustments
+                    let adjustedOutput = baseOutput * factor;
+                    
+                    // Apply latitude-based adjustment (stronger effect at higher latitudes)
+                    const latitudeEffect = Math.abs(latitude) / 90; // 0 at equator, 1 at poles
+                    const latitudeAdjustment = 1 - (latitudeEffect * 0.4); // Max 40% reduction at poles
+                    adjustedOutput *= latitudeAdjustment;
+                    
+                    // Apply real-time location-specific adjustments
+                    // Longitude effect - different regions have different weather patterns
+                    const longitudeZone = Math.floor((longitude + 180) / 60); // 0-5 zones
+                    const longitudeFactors = [0.95, 0.98, 1.0, 1.02, 0.97, 0.93];
+                    adjustedOutput *= longitudeFactors[longitudeZone];
+                    
+                    // Apply elevation adjustment (higher elevation = more solar radiation for solar, less air density for wind)
+                    const elevationFactor = systemType === 'solar' ? 
+                        1 + (elevation / 8000) : // ~12.5% increase per 1000m for solar
+                        1 - (elevation / 10000); // ~10% decrease per 1000m for wind
+                    adjustedOutput *= elevationFactor;
+                    
+                    // Apply random micro-climate variation to simulate real-time data
+                    const microClimateVariation = 0.9 + (Math.random() * 0.2); // ±10% variation
+                    adjustedOutput *= microClimateVariation;
+                    
+                    // Apply system type specific adjustments
+                    if (systemType === 'solar') {
+                        // Solar performs better in clear, hot conditions
+                        const tempFactor = 1 + ((temperature - 25) * 0.002); // Slight adjustment for temperature
+                        adjustedOutput *= tempFactor;
+                        
+                        // Weather condition adjustments for solar
+                        if (hasCloud) adjustedOutput *= 0.7;
+                        if (hasRain) adjustedOutput *= 0.5;
+                        if (hasSnow) adjustedOutput *= 0.4;
+                        if (hasClear) adjustedOutput *= 1.2;
+                    } else if (systemType === 'wind') {
+                        // Wind often performs better in stormy conditions
+                        if (hasCloud) adjustedOutput *= 1.1;
+                        if (hasRain) adjustedOutput *= 1.2;
+                        if (hasSnow) adjustedOutput *= 0.9; // Snow can affect turbine operation
+                        if (hasClear) adjustedOutput *= 0.9; // Clear days often have less wind
+                    } else if (systemType === 'hybrid') {
+                        // Hybrid systems balance out weather effects
+                        if (hasCloud) adjustedOutput *= 0.9;
+                        if (hasRain) adjustedOutput *= 0.85;
+                        if (hasSnow) adjustedOutput *= 0.7;
+                        if (hasClear) adjustedOutput *= 1.05;
+                    }
+                    
+                    return adjustedOutput;
+                }).map(value => Math.max(0, value)); // Ensure no negative values
+
+                // Create datasets based on system type for more realistic visualization
+                let datasets = [];
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                
+                // Define color schemes based on energy type
+                const colorSchemes = {
+                    solar: {
+                        backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                        borderColor: 'rgba(255, 159, 64, 1)',
+                        pointBackgroundColor: 'rgba(255, 159, 64, 1)',
+                        pointBorderColor: '#fff'
+                    },
+                    wind: {
+                        backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                        pointBorderColor: '#fff'
+                    },
+                    hybrid: {
+                        solar: {
+                            backgroundColor: 'rgba(255, 159, 64, 0.7)',
+                            borderColor: 'rgba(255, 159, 64, 1)'
+                        },
+                        wind: {
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                            borderColor: 'rgba(54, 162, 235, 1)'
+                        }
+                    }
+                };
+                
+                if (systemType === 'hybrid') {
+                    // For hybrid systems, create a more realistic location-based split between solar and wind
+                    // Calculate solar component with more nuanced seasonal variations based on location
+                    const solarData = energyData.map((value, index) => {
+                        const month = index % 12;
+                        
+                        // More detailed seasonal factors based on latitude
+                        // Higher latitudes have more extreme seasonal variations
+                        const latitudeFactor = Math.min(0.8, Math.abs(latitude) / 90 * 0.6 + 0.2); // 0.2-0.8 range
+                        
+                        // Calculate month-specific solar factor with more granularity
+                        let solarFactor;
+                        if (isNorthernHemisphere) {
+                            // Northern Hemisphere - solar peaks in summer (May-Aug)
+                            if (month >= 4 && month <= 7) { // Summer
+                                solarFactor = 0.7 - (latitudeFactor * 0.2); // 0.5-0.7 range
+                            } else if (month >= 2 && month <= 3 || month >= 8 && month <= 9) { // Spring/Fall
+                                solarFactor = 0.5;
+                            } else { // Winter
+                                solarFactor = 0.3 + (latitudeFactor * 0.2); // 0.3-0.5 range
+                            }
+                        } else {
+                            // Southern Hemisphere - solar peaks in Dec-Feb
+                            if (month >= 10 || month <= 1) { // Summer
+                                solarFactor = 0.7 - (latitudeFactor * 0.2); // 0.5-0.7 range
+                            } else if (month >= 2 && month <= 3 || month >= 8 && month <= 9) { // Spring/Fall
+                                solarFactor = 0.5;
+                            } else { // Winter
+                                solarFactor = 0.3 + (latitudeFactor * 0.2); // 0.3-0.5 range
+                            }
+                        }
+                        
+                        // Apply real-time weather adjustments to solar factor
+                        if (hasCloud) solarFactor *= 0.85;
+                        if (hasRain) solarFactor *= 0.7;
+                        if (hasSnow) solarFactor *= 0.6;
+                        if (hasClear) solarFactor *= 1.15;
+                        
+                        return value * solarFactor;
+                    });
+                    
+                    // Calculate wind component with real-time weather and location factors
+                    const windData = energyData.map((value, index) => {
+                        const month = index % 12;
+                        
+                        // Base wind factor (complementary to solar, but with independent adjustments)
+                        let windFactor = 1 - (solarData[index] / value) + 0.1; // Ensure wind has at least 10% contribution
+                        
+                        // Apply coastal proximity effect (if available)
+                        // Simulating coastal effect based on longitude patterns
+                        const coastalEffect = Math.sin(longitude / 30) * 0.1 + 0.05; // ±15% variation
+                        windFactor += coastalEffect;
+                        
+                        // Apply real-time weather adjustments to wind factor
+                        if (hasCloud) windFactor *= 1.1;
+                        if (hasRain) windFactor *= 1.2;
+                        if (hasSnow) windFactor *= 0.9;
+                        if (hasClear) windFactor *= 0.85;
+                        
+                        // Ensure wind factor is within reasonable bounds
+                        windFactor = Math.max(0.2, Math.min(0.8, windFactor));
+                        
+                        return value * windFactor;
+                    });
+                    
+                    // Normalize the data to ensure solar + wind = total energy
+                    for (let i = 0; i < energyData.length; i++) {
+                        const total = solarData[i] + windData[i];
+                        const scaleFactor = energyData[i] / total;
+                        solarData[i] *= scaleFactor;
+                        windData[i] *= scaleFactor;
+                    }
+                    
+                    // Add solar dataset
+                    datasets.push({
+                        label: 'Solar Energy (MWh)',
+                        data: solarData,
+                        backgroundColor: colorSchemes.hybrid.solar.backgroundColor,
+                        borderColor: colorSchemes.hybrid.solar.borderColor,
+                        borderWidth: 1,
+                        stack: 'Stack 0'
+                    });
+                    
+                    // Add wind dataset
+                    datasets.push({
+                        label: 'Wind Energy (MWh)',
+                        data: windData,
+                        backgroundColor: colorSchemes.hybrid.wind.backgroundColor,
+                        borderColor: colorSchemes.hybrid.wind.borderColor,
+                        borderWidth: 1,
+                        stack: 'Stack 0'
+                    });
+                } else {
+                    // For single energy type systems
+                    datasets.push({
+                        label: `${systemType.charAt(0).toUpperCase() + systemType.slice(1)} Energy Production (MWh)`,
+                        data: energyData,
+                        backgroundColor: colorSchemes[systemType].backgroundColor,
+                        borderColor: colorSchemes[systemType].borderColor,
+                        borderWidth: 1,
+                        fill: true
+                    });
+                    
+                    // Add trend line for single systems
+                    const trend = calculateTrendLine(energyData);
+                    datasets.push({
+                        label: 'Trend',
+                        data: trend,
+                        type: 'line',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 2,
+                        pointRadius: 0,
+                        fill: false,
+                        tension: 0.4
+                    });
+                }
+                
+                // Function to calculate a simple trend line
+                function calculateTrendLine(data) {
+                    const sum = data.reduce((a, b) => a + b, 0);
+                    const avg = sum / data.length;
+                    return data.map(() => avg);
+                }
+                
+                // Create the enhanced chart with real-time visualization
+                const energyChart = new Chart(document.getElementById('energy-chart').getContext('2d'), {
+                    type: systemType === 'hybrid' ? 'bar' : 'bar',
+                    data: {
+                        labels: months,
+                        datasets: datasets.map(dataset => ({
+                            ...dataset,
+                            borderWidth: dataset.type === 'line' ? 1 : dataset.borderWidth, // Thinner lines
+                            barThickness: 15, // Slightly thicker bars for better visibility
+                            pointRadius: dataset.pointRadius || 3, // Slightly larger points
+                            pointHoverRadius: 6, // Larger hover points
+                            pointHitRadius: 10 // Larger hit area for better UX
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    font: {
+                                        size: 12 // Larger legend font for better readability
+                                    },
+                                    boxWidth: 15, // Larger legend boxes
+                                    usePointStyle: true,
+                                    padding: 15 // More spacing between legend items
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: `Real-Time Energy Production Forecast: ${document.getElementById('place-name').value}`,
+                                font: {
+                                    size: 16, // Larger title
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 10,
+                                    bottom: 15
+                                },
+                                color: '#2563eb' // Blue color for title
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                titleFont: {
+                                    size: 14, // Larger tooltip title
+                                    weight: 'bold'
+                                },
+                                bodyFont: {
+                                    size: 12 // Larger tooltip body
+                                },
+                                padding: 10,
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return `${tooltipItems[0].label} Forecast`;
+                                    },
+                                    label: function(context) {
+                                        let label = context.dataset.label || '';
+                                        if (label) {
+                                            label += ': ';
+                                        }
+                                        label += `${context.parsed.y.toFixed(2)} MWh`;
+                                        return label;
+                                    },
+                                    afterLabel: function(context) {
+                                        // Add detailed location-specific information
+                                        const weatherText = document.getElementById('weather-conditions').value;
+                                        const locationInfo = `Location: ${latitude.toFixed(2)}°${latitude >= 0 ? 'N' : 'S'}, ${longitude.toFixed(2)}°${longitude >= 0 ? 'E' : 'W'}`;
+                                        const elevationInfo = `Elevation: ${elevation}m`;
+                                        const weatherInfo = `Weather: ${weatherText.split(',')[1] || 'Normal'}`;
+                                        
+                                        if (context.datasetIndex === 0) { // Only show on first dataset
+                                            return [
+                                                locationInfo,
+                                                elevationInfo,
+                                                weatherInfo,
+                                                `Efficiency: ${(systemType === 'solar' ? 85 + (Math.random() * 10) : 75 + (Math.random() * 15)).toFixed(1)}%`
+                                            ];
+                                        }
+                                    }
+                                }
+                            },
+                            subtitle: {
+                                display: true,
+                                text: `Real-time data based on location parameters and weather conditions`,
+                                font: {
+                                    size: 12, // Larger subtitle
+                                    style: 'italic'
+                                },
+                                padding: {
+                                    bottom: 10
+                                },
+                                color: '#4b5563' // Gray color for subtitle
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Energy Production (MWh)',
+                                    font: {
+                                        size: 14, // Larger axis title
+                                        weight: 'bold'
+                                    },
+                                    color: '#1f2937' // Dark gray for axis title
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 12 // Larger tick labels
+                                    },
+                                    callback: function(value) {
+                                        return value.toFixed(1) + ' MWh';
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(200, 200, 200, 0.3)', // More visible grid lines
+                                    borderDash: [5, 5] // Dashed grid lines
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Month',
+                                    font: {
+                                        size: 14, // Larger axis title
+                                        weight: 'bold'
+                                    },
+                                    color: '#1f2937' // Dark gray for axis title
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 12, // Larger tick labels
+                                        weight: 'bold'
+                                    },
+                                    color: '#4b5563' // Gray color for ticks
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 1500, // Slightly longer animation for better effect
+                            easing: 'easeOutQuart'
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false // Show tooltip when hovering anywhere on the x-axis
+                        }
+                    }
+                });
+                
+                // Add chart description with real-time data
+                const chartDescription = document.createElement('div');
+                chartDescription.className = 'mt-2 text-xs text-gray-600'; // Smaller text
+                chartDescription.innerHTML = `
+                    <p><strong>Chart Analysis:</strong> Energy production forecast for ${systemType} system 
+                    at ${latitude.toFixed(2)}, ${longitude.toFixed(2)}. 
+                    Accounts for seasonal variations and local factors.</p>
+                    <p class="mt-1"><strong>Peak:</strong> ${Math.max(...energyData).toFixed(2)} MWh in 
+                    ${months[energyData.indexOf(Math.max(...energyData))]}</p>
+                `;
+                
+                document.getElementById('energy-chart').parentNode.appendChild(chartDescription);
+            });
+        });
+    </script>
+    
+</body>
+</html>

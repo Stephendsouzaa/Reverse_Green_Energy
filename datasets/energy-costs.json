@@ -1,0 +1,6 @@
+[
+    {"location": "California", "cost_per_kwh": 0.18},
+    {"location": "Arizona", "cost_per_kwh": 0.15},
+    {"location": "Texas", "cost_per_kwh": 0.12}
+  ]
+  

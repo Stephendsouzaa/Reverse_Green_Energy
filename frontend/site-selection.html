@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Selection - Reverse Green Energy</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/home-animations.css">
+    <link rel="stylesheet" href="/assets/css/theme-switcher.css">
+    <link rel="stylesheet" href="/assets/css/modern-header.css">
+    <link rel="stylesheet" href="/assets/css/site-selection.css">
+    <link rel="stylesheet" href="/assets/css/site-type-buttons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Custom Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-new.svg">
+</head>
+<body>
+    <!-- Three.js Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <div class="app-container">
+        <header class="modern-header">
+            <div class="logo-container">
+                <img src="/assets/images/logo-new.svg" alt="Reverse Green Energy Logo" class="logo" width="50" height="50">
+                <h1>Reverse Green Energy</h1>
+                <p class="tagline">AI-Powered Site Selection</p>
+            </div>
+            
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="site-selection.html" class="active"><i class="fas fa-map-marker-alt"></i> Site Selection</a></li>
+                    <li><a href="energy-prediction.html"><i class="fas fa-bolt"></i> Energy Prediction</a></li>
+                    <li><a href="gis-mapping.html"><i class="fas fa-globe"></i> GIS Mapping</a></li>
+                    <li><a href="cost-estimation.html"><i class="fas fa-calculator"></i> Cost Estimation</a></li>
+                    <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                </ul>
+            </nav>
+            
+            <div class="theme-toggle">
+                <button id="theme-button" class="theme-button" aria-label="Select theme">🎨</button>
+                <div id="theme-dropdown" class="theme-dropdown">
+                    
+                    <button data-theme="dark">🌙 Dark Theme</button>
+                    <button data-theme="light">☀️ Light Theme</button>
+                    
+                </div>
+            </div>
+        </header>
+    
+        <main class="container">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content"  data-aos-duration="1000">
+                    <h2 class="hero-title">🌍 Find Optimal Locations</h2>
+                    <p class="hero-subtitle">
+                        <span>AI-powered site selection for renewable energy projects</span>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Introduction Section -->
+            <section class="container"  data-aos-delay="200">
+                <div class="feature-card">
+                    <h3><i class="fas fa-info-circle"></i> What It Does</h3>
+                    <p>
+                        Our AI-powered tool identifies the best possible locations for solar farms and data centers based on multiple parameters including solar irradiance, terrain analysis, grid proximity, and environmental factors.
+                    </p>
+                </div>
+
+                <div class="feature-card"  data-aos-delay="300">
+                    <h3><i class="fas fa-question-circle"></i> How to Use</h3>
+                    <ul class="feature-list">
+                        <li><i class="fas fa-map"></i> <strong>Explore the Map</strong> – Use the interactive GIS tool to view potential site locations.</li>
+                        <li><i class="fas fa-mouse-pointer"></i> <strong>Select a Region</strong> – Click on a location to analyze its suitability.</li>
+                        <li><i class="fas fa-chart-line"></i> <strong>Analyze Site Data</strong> – View real-time energy potential, cost estimation, and infrastructure proximity.</li>
+                        <li><i class="fas fa-file-download"></i> <strong>Download Reports</strong> – Generate and save a detailed site analysis report in PDF format.</li>
+                        <li><i class="fas fa-lightbulb"></i> <strong>Make Data-Driven Decisions</strong> – Use the insights for renewable energy investments.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Site Type Selection Section -->
+            
+
+<style>
+    /* Custom Glow Effect */
+    .glow-effect {
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+    .glow-effect:hover {
+        box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+    }
+</style>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Site Selection Form</h3>
+                    <form id="site-selection-form" class="my-4">
+                        <div class="my-2">
+                            <label for="place-name" class="block">Place Name:</label>
+                            <input type="text" id="place-name" class="p-2 border rounded w-full" placeholder="Selected Place" readonly>
+                        </div>
+                        <div class="my-2">
+                            <label for="latitude" class="block">Latitude:</label>
+                            <input type="text" id="latitude" name="latitude" class="p-2 border rounded w-full" placeholder="e.g. 36.7783" required>
+                        </div>
+                        <div class="my-2">
+                            <label for="longitude" class="block">Longitude:</label>
+                            <input type="text" id="longitude" name="longitude" class="p-2 border rounded w-full" placeholder="e.g. -119.4179" required>
+                        </div>
+                        <div class="my-2">
+                            <label for="elevation" class="block">Elevation (m):</label>
+                            <input type="number" id="elevation" name="elevation" class="p-2 border rounded w-full" placeholder="e.g. 500" readonly>
+                        </div>
+                        <div class="my-2">
+                            <label for="weather-conditions" class="block">Weather Conditions:</label>
+                            <input type="text" id="weather-conditions" name="weather-conditions" class="p-2 border rounded w-full" placeholder="e.g. Average Temp: 20°C" readonly>
+                        </div>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Analyze Site</button>
+                    </form>
+                </div>
+                <div class="p-4 border rounded">
+                    <h3 class="font-bold">Site Map</h3>
+                    <div id="site-map"></div>
+                </div>
+                <div class="site-type-selection"  data-aos-delay="400">
+                    <h3 class="text-center gradient-text">🌟 Select Your Site Type 🌟</h3>
+                    <div class="site-type-buttons">
+                        <!-- Solar Farm Button -->
+                        <button class="site-type-button shimmer-button" data-type="solar">
+                            <i class="fas fa-sun fa-2x"></i>
+                            <span>Solar Farm</span>
+                        </button>
+                    
+                        <!-- Data Center Button -->
+                        <button class="site-type-button shimmer-button" data-type="data-center">
+                            <i class="fas fa-server fa-2x"></i>
+                            <span>Data Center</span>
+                        </button>
+                    
+                        <!-- Hybrid Button -->
+                        <button class="site-type-button shimmer-button" data-type="hybrid">
+                            <i class="fas fa-bolt fa-2x"></i>
+                            <span>Hybrid (Solar + Data)</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="site-type" value="solar">
+                </div>
+    
+               
+    <script>
+        // Add event listeners for site type buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const siteTypeButtons = document.querySelectorAll('.site-type-button');
+            const siteTypeInput = document.getElementById('site-type');
+            const form = document.getElementById('site-selection-form');
+            const realTimeDataService = new RealTimeDataService();
+            const siteCharts = new SiteSelectionCharts();
+    
+            // Set initial active state for solar (default)
+            const defaultButton = document.querySelector('[data-type="solar"]');
+            defaultButton.classList.add('active');
+    
+            siteTypeButtons.forEach(button => {
+                button.addEventListener('click', async function() {
+                    // Remove active class from all buttons
+                    siteTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Update hidden input value
+                    const selectedType = this.getAttribute('data-type');
+                    siteTypeInput.value = selectedType;
+    
+                    // Update charts if location is already selected
+                    const latitude = document.getElementById('latitude').value;
+                    const longitude = document.getElementById('longitude').value;
+                    if (latitude && longitude) {
+                        updateChartsWithLocation(latitude, longitude, selectedType);
+                    }
+                });
+            });
+    
+            // Handle form submission for location analysis
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const latitude = document.getElementById('latitude').value;
+                const longitude = document.getElementById('longitude').value;
+                const siteType = document.getElementById('site-type').value;
+    
+                // Show results section
+                document.getElementById('results').classList.remove('hidden');
+    
+                // Update charts with new location data
+                await updateChartsWithLocation(latitude, longitude, siteType);
+            });
+    
+            // Function to update charts with location data
+            async function updateChartsWithLocation(latitude, longitude, siteType) {
+                try {
+                    // Show loading state
+                    const charts = document.querySelectorAll('canvas');
+                    charts.forEach(chart => {
+                        chart.style.opacity = '0.5';
+                    });
+    
+                    // Fetch real-time data for the location
+                    const siteData = await realTimeDataService.fetchSiteSuitabilityData(
+                        parseFloat(latitude),
+                        parseFloat(longitude),
+                        siteType
+                    );
+    
+                    // Update charts with new data
+                    siteCharts.updateCharts(siteData);
+    
+                    // Restore charts opacity
+                    charts.forEach(chart => {
+                        chart.style.opacity = '1';
+                    });
+                } catch (error) {
+                    console.error('Error updating charts:', error);
+                    alert('Error updating site analysis. Please try again.');
+                }
+            }
+        });
+    </script>
+    
+            </div>
+            
+            <div id="results" class="p-4 border rounded my-4 hidden">
+                <div class="visualization-section my-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Site Suitability Chart -->
+                    
+                
+                <h3 class="font-bold">Analysis Results</h3>
+                <div id="results-content" class="space-y-8">
+    <!-- Weather Analysis -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Weather Analysis</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-blue-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Solar Irradiance</p>
+                <p class="text-3xl font-bold">5.8 kWh/m²/day</p>
+            </div>
+            <div class="stat-card p-4 bg-yellow-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Average Temperature</p>
+                <p class="text-3xl font-bold">25°C</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Analysis -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Financial Analysis</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-green-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Estimated ROI</p>
+                <p class="text-3xl font-bold">15.5%</p>
+            </div>
+            <div class="stat-card p-4 bg-purple-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Payback Period</p>
+                <p class="text-3xl font-bold">6.2 years</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Environmental Impact -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Environmental Impact</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-emerald-500/20 rounded-lg">
+                <p class="text-lg font-semibold">CO2 Reduction</p>
+                <p class="text-3xl font-bold">12,500 tons/year</p>
+            </div>
+            <div class="stat-card p-4 bg-teal-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Land Usage</p>
+                <p class="text-3xl font-bold">45 acres</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Integration -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Grid Integration</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-indigo-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Grid Capacity</p>
+                <p class="text-3xl font-bold">25 MW</p>
+            </div>
+            <div class="stat-card p-4 bg-blue-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Distance to Substation</p>
+                <p class="text-3xl font-bold">2.5 km</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Construction Planning -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Construction Planning</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-orange-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Estimated Timeline</p>
+                <p class="text-3xl font-bold">18 months</p>
+            </div>
+            <div class="stat-card p-4 bg-red-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Site Preparation Cost</p>
+                <p class="text-3xl font-bold">$2.8M</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Community Impact -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Community Impact</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-pink-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Job Creation</p>
+                <p class="text-3xl font-bold">150 jobs</p>
+            </div>
+            <div class="stat-card p-4 bg-purple-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Economic Benefit</p>
+                <p class="text-3xl font-bold">$5.2M/year</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Monitoring -->
+    <div class="analysis-section bg-white/10 p-6 rounded-lg backdrop-blur-md">
+        <h4 class="text-2xl font-bold mb-4">Performance Monitoring</h4>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="stat-card p-4 bg-cyan-500/20 rounded-lg">
+                <p class="text-lg font-semibold">Energy Output</p>
+                <p class="text-3xl font-bold">42 GWh/year</p>
+            </div>
+            <div class="stat-card p-4 bg-amber-500/20 rounded-lg">
+                <p class="text-lg font-semibold">System Efficiency</p>
+                <p class="text-3xl font-bold">92%</p>
+            </div>
+        </div>
+    </div>
+</div>
+                <div class="mt-4 text-right">
+                    <button onclick="exportToPDF()" class="bg-purple-500 text-white px-4 py-2 rounded">
+                        <i class="fas fa-file-pdf mr-2"></i>Save as PDF
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Reverse Green Energy</p>
+    </footer>
+    
+    
+    
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="module" src="/assets/js/three-background.js"></script>
+    
+    <script>
+        // Export to PDF function
+        function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const resultsElement = document.getElementById('results-content');
+            
+            // Set PDF properties
+            doc.setProperties({
+                title: 'Site Selection Analysis Report',
+                subject: 'Solar Farm Site Analysis',
+                author: 'Reverse Green Energy',
+                keywords: 'solar farm, site selection, analysis',
+                creator: 'Site Selection Tool'
+            });
+
+            // Add header
+            doc.setFontSize(20);
+            doc.text('Site Selection Analysis Report', 105, 15, { align: 'center' });
+            doc.setFontSize(12);
+            doc.text('Reverse Green Energy', 105, 25, { align: 'center' });
+            doc.text(new Date().toLocaleDateString(), 105, 30, { align: 'center' });
+
+            // Convert the results content to an image
+            html2canvas(resultsElement).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 190;
+                const pageHeight = 290;
+                const imgHeight = canvas.height * imgWidth / canvas.width;
+                let heightLeft = imgHeight;
+                let position = 40; // start after header
+
+                // Add the image to PDF
+                doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                heightLeft -= pageHeight;
+
+                // Add new pages if content overflows
+                while (heightLeft >= 0) {
+                    position = 0;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                }
+
+                // Save the PDF
+                doc.save('site-selection-analysis.pdf');
+            });
+        }
+
+        // Initialize map
+        document.addEventListener('DOMContentLoaded', function() {
+            const map = L.map('site-map').setView([20, 0], 2); // Centered on the world
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            const form = document.getElementById('site-selection-form');
+            const results = document.getElementById('results');
+            const resultsContent = document.getElementById('results-content');
+            let marker;
+
+            // Map click event to set latitude and longitude
+            map.on('click', function(e) {
+                const lat = e.latlng.lat;
+                const lng = e.latlng.lng;
+
+                // Set latitude and longitude in the form
+                document.getElementById('latitude').value = lat.toFixed(4);
+                document.getElementById('longitude').value = lng.toFixed(4);
+
+                // Reverse geocode to get place name
+                fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const placeName = data.display_name || "Unknown Location";
+                        document.getElementById('place-name').value = placeName;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching place name:', error);
+                        document.getElementById('place-name').value = "Error fetching location";
+                    });
+
+                // Fetch elevation data
+                fetch(`https://api.open-elevation.com/api/v1/lookup?locations=${lat},${lng}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const elevation = data.results[0].elevation;
+                        document.getElementById('elevation').value = elevation.toFixed(2);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching elevation:', error);
+                        document.getElementById('elevation').value = "Error fetching elevation";
+                    });
+
+                // Fetch weather data (OpenWeatherMap API)
+                const apiKey = 'e086049ce09e1e2225c70492674c4802'; // Replace with your OpenWeatherMap API key
+                fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}&units=metric`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const temp = data.main.temp;
+                        const weatherDescription = data.weather[0].description;
+                        document.getElementById('weather-conditions').value = `Avg Temp: ${temp}°C, Condition: ${weatherDescription}`;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching weather data:', error);
+                        document.getElementById('weather-conditions').value = "Error fetching weather data: " + error.message;
+                    });
+
+                // If marker exists, remove it
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+
+                // Add marker to map
+                marker = L.marker([lat, lng]).addTo(map)
+                    .bindPopup(`Selected location:<br>Latitude: ${lat.toFixed(4)}<br>Longitude: ${lng.toFixed(4)}`)
+                    .openPopup();
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const latitude = parseFloat(document.getElementById('latitude').value);
+                const longitude = parseFloat(document.getElementById('longitude').value);
+                const elevation = parseFloat(document.getElementById('elevation').value) || 0;
+                const siteType = document.getElementById('site-type').value;
+                
+                // Set map view to the selected coordinates
+                map.setView([latitude, longitude], 10);
+                
+                // Perform analysis based on site type
+                let solarPotential, landSuitability, gridProximity, overallScore;
+                
+                if (siteType === "solar") {
+                    solarPotential = Math.floor(Math.random() * 30) + 70;
+                    landSuitability = Math.floor(Math.random() * 30) + 70;
+                    gridProximity = Math.floor(Math.random() * 30) + 70;
+                    overallScore = Math.floor((solarPotential + landSuitability + gridProximity) / 3);
+                } else if (siteType === "data-center") {
+                    // For data centers, prioritize grid proximity and cooling efficiency
+                    gridProximity = Math.floor(Math.random() * 20) + 80; // Higher grid requirements
+                    landSuitability = Math.floor(Math.random() * 30) + 70;
+                    const coolingEfficiency = Math.floor(Math.random() * 30) + 70;
+                    overallScore = Math.floor((gridProximity * 0.4 + landSuitability * 0.3 + coolingEfficiency * 0.3));
+                    solarPotential = coolingEfficiency; // Repurpose for display
+                } else { // hybrid
+                    solarPotential = Math.floor(Math.random() * 25) + 75; // Higher solar requirements
+                    landSuitability = Math.floor(Math.random() * 30) + 70;
+                    gridProximity = Math.floor(Math.random() * 25) + 75; // Higher grid requirements
+                    const hybridEfficiency = Math.floor(Math.random() * 30) + 70;
+                    overallScore = Math.floor((solarPotential * 0.3 + landSuitability * 0.2 + gridProximity * 0.3 + hybridEfficiency * 0.2));
+                }
+
+                // Detailed analysis based on elevation and site type
+                let elevationAnalysis = "Elevation is suitable.";
+                if (elevation > 2000) {
+                    elevationAnalysis = siteType === "data-center" ? 
+                        "High elevation provides natural cooling benefits but may require additional infrastructure." :
+                        "High elevation may lead to extreme weather conditions.";
+                } else if (elevation < 500) {
+                    elevationAnalysis = siteType === "hybrid" ?
+                        "Low elevation may require optimized solar panel placement." :
+                        "Low elevation may have less wind potential.";
+                }
+
+                let weatherAnalysis = "Weather conditions are favorable.";
+                if (document.getElementById('weather-conditions').value.includes("high temp")) {
+                    weatherAnalysis = siteType === "data-center" ?
+                        "High temperatures will increase cooling costs significantly." :
+                        "High temperatures may reduce solar panel efficiency.";
+                } else if (document.getElementById('weather-conditions').value.includes("low temp")) {
+                    weatherAnalysis = siteType === "data-center" ?
+                        "Low temperatures provide natural cooling benefits." :
+                        "Low temperatures may improve solar panel efficiency.";
+                }
+
+                // Site-specific recommendations
+                let siteRecommendations = "";
+                if (siteType === "solar") {
+                    siteRecommendations = "Consider optimal panel angles and tracking systems for maximum solar gain.";
+                } else if (siteType === "data-center") {
+                    siteRecommendations = "Implement efficient cooling systems and ensure robust grid connectivity.";
+                } else if (siteType === "hybrid") {
+                    siteRecommendations = "Optimize space utilization for both solar arrays and data center infrastructure.";
+                }
+
+                // Display results
+                results.classList.remove('hidden');
+                
+                resultsContent.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div>
+                            <h4>Site Details:</h4>
+                            <p><strong>Place Name:</strong> ${document.getElementById('place-name').value}</p>
+                            <p><strong>Coordinates:</strong> ${latitude.toFixed(4)}, ${longitude.toFixed(4)}</p>
+                            <p><strong>Elevation:</strong> ${elevation} m</p>
+                            <p><strong>Site Type:</strong> ${siteType}</p>
+                            <p><strong>Overall Suitability Score:</strong> <span class="font-bold text-xl">${overallScore}%</span></p>
+                        </div>
+                        <div>
+                            <h4>Detailed Analysis:</h4>
+                            ${siteType === "solar" ? `
+                                <p><strong>Solar Irradiance Potential:</strong> ${solarPotential}%</p>
+                            ` : siteType === "data-center" ? `
+                                <p><strong>Cooling Efficiency:</strong> ${solarPotential}%</p>
+                            ` : `
+                                <p><strong>Solar Integration Potential:</strong> ${solarPotential}%</p>
+                            `}
+                            <p><strong>Land Suitability:</strong> ${landSuitability}%</p>
+                            <p><strong>Grid Infrastructure:</strong> ${gridProximity}%</p>
+                            <p><strong>Elevation Analysis:</strong> ${elevationAnalysis}</p>
+                            <p><strong>Weather Impact:</strong> ${weatherAnalysis}</p>
+                            <p><strong>Recommendations:</strong> ${siteRecommendations}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
+                        <div>
+                            <h4>Environmental Impact Assessment:</h4>
+                            <p><strong>Carbon Offset Potential:</strong> ${Math.floor(solarPotential * 1.2)} tons CO2/year</p>
+                            <p><strong>Land Use Impact:</strong> ${landSuitability > 80 ? 'Minimal' : 'Moderate'}</p>
+                            <p><strong>Wildlife Impact:</strong> ${landSuitability > 85 ? 'Low' : 'Requires Assessment'}</p>
+                            <p><strong>Water Resources:</strong> ${elevation < 1000 ? 'Adequate' : 'Limited'}</p>
+                        </div>
+                        <div>
+                            <h4>Infrastructure Assessment:</h4>
+                            <p><strong>Grid Connection Cost:</strong> ${gridProximity > 85 ? 'Low' : 'Moderate'}</p>
+                            <p><strong>Access Roads:</strong> ${landSuitability > 75 ? 'Available' : 'Need Development'}</p>
+                            <p><strong>Local Power Demand:</strong> ${gridProximity > 80 ? 'High' : 'Moderate'}</p>
+                            <p><strong>Transmission Capacity:</strong> ${gridProximity > 85 ? 'Sufficient' : 'May Need Upgrade'}</p>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Financial Analysis:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <p><strong>Estimated ROI:</strong> ${Math.floor(solarPotential * 0.8)}% (5-year)</p>
+                                <p><strong>Initial Investment:</strong> $${Math.floor((100 - landSuitability) * 100000)}</p>
+                            </div>
+                            <div>
+                                <p><strong>Operating Costs:</strong> $${Math.floor(elevation * 10)}/kW/year</p>
+                                <p><strong>Grid Connection Cost:</strong> $${Math.floor((100 - gridProximity) * 1000)}</p>
+                            </div>
+                            <div>
+                                <p><strong>Payback Period:</strong> ${Math.floor(72 / (solarPotential * 0.8))} years</p>
+                                <p><strong>Annual Revenue Potential:</strong> $${Math.floor(solarPotential * 1000)}/kW</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Detailed Recommendations:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+        <h5 class="font-bold" style="font-size: 1.5rem; color: rgb(255, 255, 255);">Technical Recommendations:</h5>
+        <ul class="list-disc pl-5" style="font-size: 1rem; padding-left: 2rem; line-height: 1.8; color: rgb(255, 255, 255);">
+            <li>${siteRecommendations}</li>
+            <li>Implement ${solarPotential > 85 ? 'bifacial' : 'standard'} solar panels</li>
+            <li>${elevation < 1000 ? 'Consider ground-mounted systems' : 'Evaluate wind protection measures'}</li>
+            <li>${gridProximity > 85 ? 'Direct grid connection possible' : 'Consider power storage solutions'}</li>
+        </ul>
+    </div>
+    <div>
+        <h5 class="font-bold" style="font-size: 1.5rem; color: rgb(255, 255, 255);">Implementation Strategy:</h5>
+        <ul class="list-disc pl-5" style="font-size: 1rem; padding-left: 2rem; line-height: 1.8; color: rgb(255, 255, 255);">
+            <li>Phase 1: ${landSuitability > 85 ? 'Immediate development' : 'Gradual development'}</li>
+            <li>Phase 2: ${gridProximity > 85 ? 'Grid integration' : 'Infrastructure development'}</li>
+            <li>Phase 3: ${solarPotential > 85 ? 'Capacity expansion' : 'Optimization'}</li>
+        </ul>
+    </div>
+</div>
+
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Overall Assessment:</h4>
+                        <p class="font-bold text-lg">${overallScore > 85 ? 'Highly Recommended' : overallScore > 75 ? 'Recommended' : 'Suitable with Reservations'}</p>
+                        <p class="mt-2">
+                            This site is ${overallScore > 75 ? 'recommended' : 'potentially suitable'} for solar farm development based on its 
+                            ${solarPotential > 80 ? 'excellent' : 'good'} solar potential, 
+                            ${landSuitability > 80 ? 'favorable' : 'acceptable'} land characteristics, and 
+                            ${gridProximity > 80 ? 'strong' : 'adequate'} grid infrastructure. 
+                            ${overallScore > 85 ? 'The combination of high solar irradiance, suitable terrain, and existing infrastructure makes this an ideal location.' : 
+                              overallScore > 75 ? 'While some aspects may require additional investment, the overall conditions are favorable for development.' : 
+                              'Careful planning and mitigation strategies will be necessary to address potential challenges.'}
+                        </p>
+                    </div>
+
+                    <!-- Additional Analysis Sections -->
+                    <div class="my-4">
+                        <h4>Weather Analysis:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <p><strong>Solar Patterns:</strong> 5.8 kWh/m²/day</p>
+                                <p><strong>Cloud Cover:</strong> 25%</p>
+                            </div>
+                            <div>
+                                <p><strong>Temperature Range:</strong> 20-35°C</p>
+                                <p><strong>Precipitation:</strong> 800mm/year</p>
+                            </div>
+                            <div>
+                                <p><strong>Wind Speed:</strong> 12 km/h</p>
+                                <p><strong>Humidity:</strong> 65%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Grid Integration:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p><strong>Grid Capacity:</strong> 50 MW</p>
+                                <p><strong>Transmission Lines:</strong> 2 km</p>
+                            </div>
+                            <div>
+                                <p><strong>Substation Distance:</strong> 5 km</p>
+                                <p><strong>Power Quality:</strong> High</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Construction Planning:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p><strong>Site Preparation:</strong> 3 months</p>
+                                <p><strong>Installation Time:</strong> 6 months</p>
+                            </div>
+                            <div>
+                                <p><strong>Equipment Lead Time:</strong> 2 months</p>
+                                <p><strong>Testing Period:</strong> 1 month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Community Impact:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p><strong>Local Employment:</strong> 200 jobs</p>
+                                <p><strong>Economic Benefits:</strong> $3M/year</p>
+                            </div>
+                            <div>
+                                <p><strong>Community Programs:</strong> Education & Training</p>
+                                <p><strong>Local Business Impact:</strong> Positive</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="my-4">
+                        <h4>Performance Monitoring:</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <p><strong>Energy Output:</strong> 45 GWh/year</p>
+                                <p><strong>Performance Ratio:</strong> 0.85</p>
+                            </div>
+                            <div>
+                                <p><strong>System Availability:</strong> 99.5%</p>
+                                <p><strong>Degradation Rate:</strong> 0.5%/year</p>
+                            </div>
+                            <div>
+                                <p><strong>O&M Cost:</strong> $150k/year</p>
+                                <p><strong>Efficiency:</strong> 21%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex justify-between">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded" onclick="window.location.href='energy-prediction.html'">Proceed to Energy Prediction</button>
+                        <button class="bg-green-500 text-white px-4 py-2 rounded" onclick="window.location.href='cost-estimation.html'">View Detailed Cost Analysis</button>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>
+<script>
+    // Add this script at the end of the file, before closing body tag
+    document.addEventListener('DOMContentLoaded', function() {
+        const siteTypeButtons = document.querySelectorAll('.site-type-btn');
+        const siteTypeSelect = document.getElementById('site-type');
+        const siteSelectionForm = document.getElementById('site-selection-form');
+
+        siteTypeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                siteTypeButtons.forEach(btn => {
+                    btn.classList.remove('bg-green-500');
+                    btn.classList.add('bg-blue-500');
+                });
+                this.classList.remove('bg-blue-500');
+                this.classList.add('bg-green-500');
+                siteTypeSelect.value = this.dataset.type;
+            });
+        });
+
+        siteSelectionForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const latitude = parseFloat(document.getElementById('latitude').value);
+            const longitude = parseFloat(document.getElementById('longitude').value);
+            const elevation = parseFloat(document.getElementById('elevation').value) || 0;
+            const siteType = siteTypeSelect.value;
+            
+            try {
+                // Show loading state
+                document.getElementById('analysis-results').classList.remove('hidden');
+                document.getElementById('analysis-results').innerHTML = '<div class="p-4 text-center">Analyzing site data...</div>';
+                
+                // Fetch site analysis data
+                const response = await fetch('/api/analyze-site', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        latitude,
+                        longitude,
+                        elevation,
+                        siteType,
+                        weatherConditions: document.getElementById('weather-conditions').value
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Failed to analyze site');
+                }
+                
+                const data = await response.json();
+                
+                // Update the analysis results section
+                document.getElementById('analysis-results').innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+                        <div class="bg-white p-4 rounded shadow">
+                            <h3 class="font-bold mb-2">Solar Potential</h3>
+                            <p>Solar Irradiance: ${data.solarIrradiance} kWh/m²/day</p>
+                            <p>Annual Energy Production: ${data.annualSolarEnergy} MWh</p>
+                            <p>Panel Efficiency: ${data.panelEfficiency}%</p>
+                        </div>
+                        <div class="bg-white p-4 rounded shadow">
+                            <h3 class="font-bold mb-2">Site Characteristics</h3>
+                            <p>Elevation: ${elevation}m</p>
+                            <p>Weather: ${document.getElementById('weather-conditions').value}</p>
+                            <p>Grid Distance: ${data.gridDistance || 'N/A'} km</p>
+                        </div>
+                        <div class="bg-white p-4 rounded shadow col-span-2">
+                            <h3 class="font-bold mb-2">Recommendations</h3>
+                            <p>${data.recommendations || 'No specific recommendations available.'}</p>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('analysis-results').innerHTML = `
+                    <div class="p-4 text-red-500">
+                        Failed to analyze site. Please try again later.
+                    </div>
+                `;
+            }
+        });
+    });
+</script>
+<div class="my-2">
+    <input type="hidden" id="site-type" name="site-type" value="solar">
+</div>
+<div id="analysis-results" class="hidden mt-8 p-6 bg-white rounded-lg shadow-lg">
+    <!-- Weather Analysis Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Weather Analysis</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Solar Irradiance</h4>
+                <p id="solar-irradiance">Loading...</p>
+                <canvas id="solar-chart" class="mt-2"></canvas>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Temperature</h4>
+                <p id="temperature">Loading...</p>
+                <canvas id="temp-chart" class="mt-2"></canvas>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Wind Patterns</h4>
+                <p id="wind-speed">Loading...</p>
+                <canvas id="wind-chart" class="mt-2"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Financial Analysis Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Financial Analysis</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Cost Breakdown</h4>
+                <p id="installation-cost">Loading...</p>
+                <canvas id="cost-chart" class="mt-2"></canvas>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">ROI Projection</h4>
+                <p id="roi-period">Loading...</p>
+                <canvas id="roi-chart" class="mt-2"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Environmental Impact Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Environmental Impact</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Carbon Offset</h4>
+                <p id="carbon-offset">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Land Use Impact</h4>
+                <p id="land-use-impact">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Protected Areas</h4>
+                <p id="protected-areas">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid Integration Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Grid Integration</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Grid Capacity</h4>
+                <p id="grid-capacity">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Connection Points</h4>
+                <p id="connection-points">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Infrastructure Quality</h4>
+                <p id="infrastructure-quality">Loading...</p>
+            </div>
+        </div>
+        <canvas id="grid-chart" class="mt-4"></canvas>
+    </div>
+
+    <!-- Construction Planning Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Construction Planning</h3>
+        <div id="timeline-container" class="p-4 bg-gray-50 rounded">
+            <div id="construction-timeline">Loading timeline...</div>
+        </div>
+    </div>
+
+    <!-- Community Impact Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Community Impact</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Job Creation</h4>
+                <p id="job-creation">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Economic Benefits</h4>
+                <p id="economic-benefits">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Social Impact Score</h4>
+                <p id="social-impact">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Performance Monitoring Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">Performance Monitoring</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Energy Output</h4>
+                <p id="energy-output">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">System Efficiency</h4>
+                <p id="system-efficiency">Loading...</p>
+            </div>
+            <div class="p-4 bg-gray-50 rounded">
+                <h4 class="font-semibold">Reliability Score</h4>
+                <p id="reliability-score">Loading...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Visualization Section -->
+    <div class="mb-8">
+        <h3 class="text-2xl font-bold mb-4">3D Terrain Visualization</h3>
+        <div id="terrain-container" class="h-96 bg-gray-100 rounded">
+            <!-- Three.js will render here -->
+        </div>
+    </div>
+</div>
+<!-- Add required scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/assets/js/real-time-data-service.js"></script>
+<script src="/assets/js/site-selection-charts.js"></script>
+<script src="/assets/js/site-selection-realtime.js"></script>
+<script src="/assets/js/theme-switcher.js"></script>
+        <style>
+            .theme-button {
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                padding: 8px;
+                transition: transform 0.3s ease;
+            }
+            
+            .theme-button:hover {
+                transform: scale(1.1);
+            }
+            
+            .theme-dropdown {
+                display: none;
+                position: absolute;
+                right: 0;
+                top: 100%;
+                background-color: var(--bg-color);
+                border: 1px solid var(--border-color);
+                border-radius: 8px;
+                padding: 8px 0;
+                z-index: 1000;
+            }
+            
+            .theme-dropdown.show {
+                display: block;
+            }
+            
+            .theme-dropdown button {
+                display: block;
+                width: 100%;
+                padding: 8px 16px;
+                background: none;
+                border: none;
+                color: var(--text-color);
+                cursor: pointer;
+                text-align: left;
+                transition: background-color 0.3s ease;
+            }
+            
+            .theme-dropdown button:hover {
+                background-color: var(--border-color);
+            }
+            </style>
+            <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const themeButton = document.getElementById('theme-button');
+                const themeDropdown = document.getElementById('theme-dropdown');
+                const bgCanvas = document.getElementById('bg-canvas');
+                
+                // Initialize theme from localStorage or default to 'same'
+                const savedTheme = localStorage.getItem('selected-theme') || 'same';
+                applyTheme(savedTheme);
+                
+                // Toggle dropdown
+                themeButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    themeDropdown.classList.toggle('show');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function() {
+                    themeDropdown.classList.remove('show');
+                });
+                
+                // Theme selection
+                themeDropdown.addEventListener('click', function(e) {
+                    if (e.target.matches('button')) {
+                        const selectedTheme = e.target.dataset.theme;
+                        applyTheme(selectedTheme);
+                        localStorage.setItem('selected-theme', selectedTheme);
+                        themeDropdown.classList.remove('show');
+                    }
+                });
+                
+                function applyTheme(theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    
+                    // Update emoji on theme button
+                    const themeEmojis = {
+                        same: '🎨',
+                        dark: '🌙',
+                        light: '☀️',
+                        threejs: '🌌'
+                    };
+                    themeButton.textContent = themeEmojis[theme];
+                    
+                    // Toggle Three.js background
+                    if (theme === 'threejs') {
+                        bgCanvas.style.display = 'block';
+                    } else {
+                        bgCanvas.style.display = 'none';
+                    }
+                    
+                    // Apply specific theme colors
+                    switch(theme) {
+                        case 'same':
+                            document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+                            document.documentElement.style.setProperty('--text-color', '#ffffff');
+                            document.documentElement.style.setProperty('--accent-color', '#4CAF50');
+                            document.documentElement.style.setProperty('--border-color', '#333');
+                            break;
+                        case 'dark':
+                            document.documentElement.style.setProperty('--bg-color', '#121212');
+                            document.documentElement.style.setProperty('--text-color', '#e0e0e0');
+                            document.documentElement.style.setProperty('--accent-color', '#bb86fc');
+                            document.documentElement.style.setProperty('--border-color', '#2d2d2d');
+                            break;
+                        case 'light':
+                            document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                            document.documentElement.style.setProperty('--text-color', '#333333');
+                            document.documentElement.style.setProperty('--accent-color', '#2196F3');
+                            document.documentElement.style.setProperty('--border-color', '#e0e0e0');
+                            break;
+                    }
+                }
+            });
+            </script>
+<style>
+.loading {
+    position: relative;
+    opacity: 0.7;
+}
+.loading::after {
+    content: "Loading...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+}
+</style>
+</html>

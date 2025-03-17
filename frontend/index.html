@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Green Energy - AI-Powered Renewable Energy Insights</title>
+    <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/home-animations.css">
+    <link rel="stylesheet" href="/assets/css/theme-switcher.css">
+    <link rel="stylesheet" href="/assets/css/modern-header.css">
+    <!-- Leaflet CSS for maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <!-- Three.js for background animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Custom Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/images/logo-new.svg">
+</head>
+<body>
+    <!-- Three.js Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+    
+    <header class="modern-header">
+        <div class="logo-container">
+            <img src="/assets/images/logo-new.svg" alt="Reverse Green Energy Logo" class="logo" width="50" height="50">
+            <h1>Reverse Green Energy</h1>
+            <p class="tagline">AI-Powered Renewable Energy Insights</p>
+        </div>
+        
+        <nav class="main-navigation">
+            <ul>
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="site-selection.html"><i class="fas fa-map-marker-alt"></i> Site Selection</a></li>
+                <li><a href="energy-prediction.html"><i class="fas fa-bolt"></i> Energy Prediction</a></li>
+                <li><a href="gis-mapping.html"><i class="fas fa-globe"></i> GIS Mapping</a></li>
+                <li><a href="cost-estimation.html"><i class="fas fa-calculator"></i> Cost Estimation</a></li>
+                <li><a href="dashboard.html"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+            </ul>
+        </nav>
+        
+        <div class="theme-toggle">
+            <button id="theme-button" class="theme-button" aria-label="Select theme">🎨</button>
+            <div id="theme-dropdown" class="theme-dropdown">
+                <button data-theme="same">🎨 Same Color</button>
+                <button data-theme="dark">🌙 Dark Theme</button>
+                <button data-theme="light">☀️ Light Theme</button>
+                <button data-theme="threejs">🌌 Three.js Background</button>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content"  >
+                <h2 class="hero-title">⚡ AI-Powered Renewable Energy Insights</h2>
+                <p class="hero-subtitle">
+                    <span class="cycling-text" id="cycling-text">Find Optimal Locations for Solar & Wind Farms</span>
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="site-selection.html" class="cta-button cta-primary">
+                        <i class="fas fa-map-marker-alt"></i> Select Your Location
+                    </a>
+                    <a href="energy-prediction.html" class="cta-button">
+                        <i class="fas fa-search"></i> Analyze Energy Potential
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Introduction Section -->
+        <section class="container">
+            <h2>Welcome to the Reverse Green Energy Project</h2>
+            <p>This project focuses on identifying the best possible locations for solar farms and data centers using AI-powered analysis, geospatial data, and renewable energy insights.</p>
+            
+            <div class="features-grid" style="grid-template-columns: repeat(2, 1fr);">
+                <div class="feature-card">
+                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                    <p>Help businesses and IT companies make informed decisions based on multiple environmental and economic parameters.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-rocket"></i> Get Started</h3>
+                    <p>Select a feature from the menu above to explore our tools and capabilities.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Core Features Section -->
+        <section class="features-section container">
+            <h2>Core Features</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-satellite"></i> AI-Powered Site Selection</h3>
+                    <ul>
+                        <li>Solar Irradiance Analysis & Optimization</li>
+                        <li>Wind Speed & Weather Pattern Analysis</li>
+                        <li>Land Suitability & Terrain Assessment</li>
+                        <li>Grid Infrastructure Proximity</li>
+                        <li>Environmental Impact Evaluation</li>
+                    </ul>
+                    <a href="site-selection.html" class="try-now-button">Try Now</a>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-chart-bar"></i> Energy Potential & Output Prediction</h3>
+                    <ul>
+                        <li>Advanced Machine Learning Models</li>
+                        <li>Real-time Energy Generation Forecasting</li>
+                        <li>Seasonal Performance Analysis</li>
+                        <li>ROI & Efficiency Calculations</li>
+                        <li>Power Output Optimization</li>
+                    </ul>
+                    <a href="energy-prediction.html" class="try-now-button">Try Now</a>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-map"></i> GIS & Mapping</h3>
+                    <ul>
+                        <li>Interactive 3D Map Visualization</li>
+                        <li>Solar Radiation & Energy Heatmaps</li>
+                        <li>Land Use & Zoning Analysis</li>
+                        <li>Infrastructure Layer Mapping</li>
+                        <li>Site Accessibility Assessment</li>
+                    </ul>
+                    <a href="gis-mapping.html" class="try-now-button">Try Now</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Live Energy Insights Section -->
+        <section class="container">
+            <h2>Live Energy Insights</h2>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-sun"></i> Solar Energy</h3>
+                    <div class="energy-counter">
+                        <span id="solar-counter">0</span> kWh
+                    </div>
+                    <p>Potential solar energy captured today</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-wind"></i> Wind Energy</h3>
+                    <div class="energy-counter">
+                        <span id="wind-counter">0</span> kWh
+                    </div>
+                    <p>Potential wind energy generated today</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-tree"></i> CO₂ Reduction</h3>
+                    <div class="energy-counter">
+                        <span id="co2-counter">0</span> tons
+                    </div>
+                    <p>Equivalent to <span id="trees-counter">0</span> trees planted</p>
+                </div>
+            </div>
+        </section>
+        <br>
+        
+        <!-- Latest Projects Section -->
+        <section class="container">
+            <br>
+            <br>
+            <br>
+            <h2>Latest Projects</h2>
+            <div class="features-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fas fa-solar-panel"></i> Solar Farm - California</h3>
+                    <p>120MW capacity solar farm with advanced tracking system</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-bolt"></i> 120MW</span>
+                        <span><i class="fas fa-calendar"></i> 2023</span>
+                    </div>
+                    <a href="#" class="try-now-button">View Details</a>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fas fa-wind"></i> Wind Farm - Texas</h3>
+                    <p>Offshore wind farm with 85 turbines and smart grid integration</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-bolt"></i> 250MW</span>
+                        <span><i class="fas fa-calendar"></i> 2022</span>
+                    </div>
+                    <a href="#" class="try-now-button">View Details</a>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3><i class="fas fa-database"></i> Green Data Center</h3>
+                    <p>100% renewable-powered data center with advanced cooling</p>
+                    <div class="project-stats">
+                        <span><i class="fas fa-server"></i> 5000 servers</span>
+                        <span><i class="fas fa-calendar"></i> 2023</span>
+                    </div>
+                    <a href="#" class="try-now-button">View Details</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; Reverse Green Energy | Powered by AI & Renewable Energy Insights</p>
+    </footer>
+    
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true
+        });
+    </script>
+    <!-- Background Animation -->
+    <script src="/assets/js/enhanced-home.js"></script>
+    <!-- Theme Switcher -->
+    <script src="/assets/js/theme-switcher.js"></script>
+    <!-- Main JavaScript -->
+    <script>
+        // Cycling text animation
+        const phrases = [
+            "Find Optimal Locations for Solar & Wind Farms",
+            "Get AI-Driven Energy Potential Analysis",
+            "Visualize Renewable Energy Data in Real-Time",
+            "Make Data-Driven Sustainability Decisions",
+            "Optimize Your Green Energy Investment"
+        ];
+        
+        let currentPhraseIndex = 0;
+        const cyclingTextElement = document.getElementById('cycling-text');
+        
+        function cycleText() {
+            cyclingTextElement.style.opacity = 0;
+            
+            setTimeout(() => {
+                currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+                cyclingTextElement.textContent = phrases[currentPhraseIndex];
+                cyclingTextElement.style.opacity = 1;
+            }, 500);
+        }
+        
+        setInterval(cycleText, 4000);
+        
+        // Energy counter animation
+        function animateCounter(elementId, targetValue, duration, unit = '') {
+            const counterElement = document.getElementById(elementId);
+            const startValue = 0;
+            const increment = targetValue / (duration / 50);
+            let currentValue = startValue;
+            
+            const timer = setInterval(() => {
+                currentValue += increment;
+                
+                if (currentValue >= targetValue) {
+                    clearInterval(timer);
+                    currentValue = targetValue;
+                }
+                
+                counterElement.textContent = Math.floor(currentValue).toLocaleString();
+            }, 50);
+        }
+        
+        // Start counter animations when they come into view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        animateCounter('solar-counter', 12500, 2000);
+                        animateCounter('wind-counter', 8750, 2000);
+                        animateCounter('co2-counter', 1250, 2000);
+                        animateCounter('trees-counter', 5800, 2000);
+                    }, 500);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        // Observe energy counters
+        document.querySelectorAll('.energy-counter').forEach(counter => {
+            observer.observe(counter);
+        });
+    </script>
+</body>
+</html>
+<style>
+.theme-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    transition: transform 0.3s ease;
+}
+
+.theme-button:hover {
+    transform: scale(1.1);
+}
+
+.theme-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 0;
+    z-index: 1000;
+}
+
+.theme-dropdown.show {
+    display: block;
+}
+
+.theme-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.theme-dropdown button:hover {
+    background-color: var(--border-color);
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeButton = document.getElementById('theme-button');
+    const themeDropdown = document.getElementById('theme-dropdown');
+    const bgCanvas = document.getElementById('bg-canvas');
+    
+    // Initialize theme from localStorage or default to 'same'
+    const savedTheme = localStorage.getItem('selected-theme') || 'same';
+    applyTheme(savedTheme);
+    
+    // Toggle dropdown
+    themeButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        themeDropdown.classList.toggle('show');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function() {
+        themeDropdown.classList.remove('show');
+    });
+    
+    // Theme selection
+    themeDropdown.addEventListener('click', function(e) {
+        if (e.target.matches('button')) {
+            const selectedTheme = e.target.dataset.theme;
+            applyTheme(selectedTheme);
+            localStorage.setItem('selected-theme', selectedTheme);
+            themeDropdown.classList.remove('show');
+        }
+    });
+    
+    function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        
+        // Update emoji on theme button
+        const themeEmojis = {
+            same: '🎨',
+            dark: '🌙',
+            light: '☀️',
+            threejs: '🌌'
+        };
+        themeButton.textContent = themeEmojis[theme];
+        
+        // Toggle Three.js background
+        if (theme === 'threejs') {
+            bgCanvas.style.display = 'block';
+        } else {
+            bgCanvas.style.display = 'none';
+        }
+        
+        // Apply specific theme colors
+        switch(theme) {
+            case 'same':
+                document.documentElement.style.setProperty('--bg-color', '#1a1a1a');
+                document.documentElement.style.setProperty('--text-color', '#ffffff');
+                document.documentElement.style.setProperty('--accent-color', '#4CAF50');
+                document.documentElement.style.setProperty('--border-color', '#333');
+                break;
+            case 'dark':
+                document.documentElement.style.setProperty('--bg-color', '#121212');
+                document.documentElement.style.setProperty('--text-color', '#e0e0e0');
+                document.documentElement.style.setProperty('--accent-color', '#bb86fc');
+                document.documentElement.style.setProperty('--border-color', '#2d2d2d');
+                break;
+            case 'light':
+                document.documentElement.style.setProperty('--bg-color', '#ffffff');
+                document.documentElement.style.setProperty('--text-color', '#333333');
+                document.documentElement.style.setProperty('--accent-color', '#2196F3');
+                document.documentElement.style.setProperty('--border-color', '#e0e0e0');
+                break;
+        }
+    }
+});
+</script>
+</body>
+</html>
