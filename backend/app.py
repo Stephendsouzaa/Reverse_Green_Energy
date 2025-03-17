@@ -1,7 +1,6 @@
 import os
-from flask import Flask, jsonify, send_from_directory, redirect
+from flask import Flask, jsonify, send_from_directory
 from routes.solar_data import solar_data_bp
-
 from routes.site_selection import site_selection_bp
 from routes.predictions import predictions_bp
 from routes.cost_estimation import cost_estimation_bp
@@ -60,10 +59,6 @@ def serve_components(filename):
 def serve_charts(filename):
     return send_from_directory(CHARTS_DIR, filename)
 
-# API root route
-@app.route('/api')
-def api_home():
-    return jsonify({"message": "Welcome to the Reverse Green Energy API"}), 200
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Use Render's assigned port
+    app.run(host="0.0.0.0", port=port, debug=True)
